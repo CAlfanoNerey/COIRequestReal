@@ -33,12 +33,12 @@
 
 
                 {% if user.is_authenticated %}
-                <li><a href='/accounts/{{ user.pk }}/profile'>View Profile</a></li>
-                    <li><a href={% url 'requester_update' %}>Update Info</a></li>
-                <!--li><a href="/accounts/{{user.id}}/requesterupdate">Update Info</a></li-->
-                <li><a href="/accounts/logout/">Logout</a></li>
-                    <li><a href="/accounts/recipient">Draft a request</a></li>
-                <li><a href="/accounts/{{user.pk}}/certholder">View Forms</a></li>
+<!--                <li><a href='/accounts/{{ user.pk }}/profile'>View Profile</a></li>-->
+<!--                    <li><a href={% url 'requester_update' %}>Update Info</a></li>-->
+<!--                &lt;!&ndash;li><a href="/accounts/{{user.id}}/requesterupdate">Update Info</a></li&ndash;&gt;-->
+<!--                <li><a href="/accounts/logout/">Logout</a></li>-->
+<!--                    <li><a href="/accounts/recipient">Draft a request</a></li>-->
+<!--                <li><a href="/accounts/{{user.pk}}/certholder">View Forms</a></li>-->
                 {% else %}
                 <li><a href="/accounts/register/">Register</a></li>
                 <li><a href="/accounts/login/">Login</a></li>
@@ -47,8 +47,16 @@
           </div><!--/.nav-collapse -->
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Draft Request</a></li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/{{ user.pk }}/profile">Profile</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'requester_update' %}">Update Info</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/logout/">Logout</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/recipient">Request</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/{{user.pk}}/certholder">View Forms</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li>
+                        {% else %}
+
+                        {% endif %}
                     </ul>
                 </div>
             </div>
