@@ -1,0 +1,31 @@
+
+<title>Profile</title>
+{% extends 'index.html' %}
+{%block home%}
+
+{% endblock %}
+
+    {% block content %}
+<div class="container">
+
+    <br>
+    <br>
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Profile</h2>
+        <p>Username: {{user}}</p>
+        <p>First name: {{user.first_name}}</p>
+        <p>Last name: {{user.last_name}}</p>
+        <p>Email: {{user.email}}</p>
+        <p>Address Line 1: {{user.address_line1}}</p>
+        <p>Address Line 2: {{user.address_line2}}</p>
+        <p>City: {{user.city}}</p>
+        <p>State or Territory: {{user.state_or_territory}}</p>
+        <p>Zip Code: {{user.zipcode}}</p>
+        <p>Fax: {{user.fax}}</p>
+
+    </div>
+{% endblock %}
+
+
+
+
+

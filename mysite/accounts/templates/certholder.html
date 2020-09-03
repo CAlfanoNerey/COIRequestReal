@@ -1,0 +1,23 @@
+
+<title>Profile</title>
+{% extends 'index.html' %}
+{%block home%}
+
+{% endblock %}
+
+
+    {% block content %}
+<div class="container">
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">View Forms</h2>
+    <br>
+    <br>
+        {% for recipient in recipient %}
+        <li><a href="/accounts/{{ recipient.id }}/viewdoc">{{ recipient.name }}</a></li>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+
+
+
+

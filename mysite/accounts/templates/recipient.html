@@ -1,0 +1,15 @@
+<title>Recipient Form</title>
+{% extends 'index.html' %}
+
+{% block content %}
+<h1>Recipient Form</h1>
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+
+    <button class="btn btn-success" type="submit" name = "button">Submit</button>
+</form>
+
+{%endblock%}

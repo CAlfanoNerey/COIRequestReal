@@ -1,0 +1,164 @@
+
+
+
+
+
+
+
+<!DOCTYPE  html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Form PDF</title><meta name="author" content="Christian Alfano"/><style type="text/css"> * {margin:0; padding:0; text-indent:0; }
+  h1 { color: black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 16pt; }
+ .s1 { color: #FFF; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt; }
+  .s2 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt; border-bottom-color: black; border-bottom-style: solid; border-bottom-width: 1px; border-left-color: black; border-left-style: solid; border-left-width: 1px; border-right-color:black; border-right-style:solid; border-right-width: 1px;border-top-color:black; border-top-style: solid; border-top-width: 1px;}
+ .s3 { color: black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt; }
+ .s4 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10pt; }
+ p { color: black; font-family:"Arial Narrow", sans-serif; font-style: italic; font-weight: bold; text-decoration: none; font-size: 9pt; margin:0pt; }
+ .a { color: black; font-family:"Arial Narrow", sans-serif; font-style: italic; font-weight: bold; text-decoration: none; font-size: 9pt; }
+ .s5 { color: black; font-family:"Brush Script MT"; font-style: italic; font-weight: normal; text-decoration: underline; font-size: 18pt; }
+ .s6 { color: black; font-family:"Brush Script MT"; font-style: italic; font-weight: normal; text-decoration: none; font-size: 18pt; }
+ h2 { color: black; font-family:"Trebuchet MS", sans-serif; font-style: italic; font-weight: bold; text-decoration: none; font-size: 9pt; }
+ table, tbody {vertical-align: top; overflow: visible; }
+</style></head><body>
+
+<div class="container">
+<h1 style="padding-top: 5pt;padding-bottom: 2pt;padding-left: 20pt;text-indent: 0pt;text-align: center;">Certificate of Insurance Request Form</h1>
+</div>
+<table width="979" cellspacing="0" style=""><tr style="height:25pt"><td style="width:539pt" colspan="3" bgcolor="#000000"><p class="s1" style="padding-top: 3pt;padding-left: 244pt;padding-right: 245pt;text-indent: 0pt;line-height: 10pt;text-align: center;">Contact Information</p>
+</td></tr><tr style="height:40pt">
+
+	<tr style="height:21pt; width:970;">
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Your Business Name</p></td>
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Your Name: {{user.name}}</p></td>
+	<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Request Date: {{user.date_joined}}</p></td></tr>
+
+
+	<tr style="height:21pt; width: 970;">
+		<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"  colspan="2"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Company Address: {{user.address_line1}}</p></td>
+
+		<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Address Line 2: {{user.address_line2}}</p></td>
+
+	</tr>
+
+	<tr style="height:21pt; width:970;">
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">City: {{user.city}}</p></td>
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">State: {{user.state_or_territory}}</p></td>
+	<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Zip Code: {{user.zipcode}}</p></td></tr>
+
+
+	<tr style="height:21pt; width: 970;">
+		<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"  ><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Phone Number:</p></td>
+
+		<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"colspan="2"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Email Address: {{user.email}}</p></td>
+
+	</tr>
+
+	</table><p style="text-indent: 0pt;text-align: left;"><br/></p>
+
+
+
+	<table width="979" cellspacing="0" style=""><tr style="height:25pt"><td style="width:539pt" colspan="3" bgcolor="#000000"><p class="s1" style="padding-top: 3pt;padding-left: 244pt;padding-right: 245pt;text-indent: 0pt;line-height: 10pt;text-align: center;">Certificate Holder (recipient)</p>
+</td></tr><tr style="height:40pt">
+
+	<tr style="height:21pt; width:970;">
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt" colspan="3"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Name: {{recipient.name}}</p></td>
+	</tr>
+
+
+	<tr style="height:21pt; width: 970;">
+		<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"  colspan="2"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Address Line 1: {{recipient.address_line1}}</p></td>
+
+		<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Address Line 2: {{recipient.address_line2}}</p></td>
+
+	</tr>
+
+	<tr style="height:21pt; width:970;">
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">City: {{user.city}}</p></td>
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">State: {{user.state_or_territory}}</p></td>
+	<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Zip Code: {{user.zipcode}}</p></td></tr>
+
+
+	<tr style="height:50pt; width:970;">
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt" colspan="3"><p class="s2" style="padding-top: 10pt;padding-left: 4pt;text-indent: 0pt;text-align: left;" >If you would like the certificate sent directly to your customer, please provide either an email address or fax number. Otherwise, the  certificate will be emailed directly to you. </p></td>
+	</tr>
+
+
+	<tr style="height:21pt; width: 970;">
+		<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"  ><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Email: {{recipient.email}}</p></td>
+
+		<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"colspan="2"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Fax: {{recipient.fax}}</p></td>
+
+	</tr>
+
+	</table>
+
+	<p style="text-indent: 0pt;text-align: left;"><br/></p>
+
+
+
+	<table width="979" cellspacing="0" style=""><tr style="height:25pt"><td style="width:539pt" colspan="3" bgcolor="#000000"><p class="s1" style="padding-top: 3pt;padding-left: 244pt;padding-right: 245pt;text-indent: 0pt;line-height: 10pt;text-align: center;">Client Data (Requester)</p>
+</td></tr><tr style="height:40pt">
+
+	<tr style="height:21pt; width:970;">
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt" colspan="3"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Name: </p></td>
+	</tr>
+
+
+	<tr style="height:21pt; width: 970;">
+		<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"  colspan="2"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Address Line 1</p></td>
+
+		<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Address Line 2: </p></td>
+
+	</tr>
+
+	<tr style="height:21pt; width:970;">
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">City:</p></td>
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">State:</p></td>
+	<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Zip Code:</p></td></tr>
+
+
+	<tr style="height:21pt; width: 970;">
+		<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"  ><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Email</p></td>
+
+		<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"colspan="2"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Fax</p></td>
+
+	</tr>
+
+	</table>
+
+
+	<p style="text-indent: 0pt;text-align: left;"><br/></p>
+
+
+	<table width="979" cellspacing="0" style=""><tr style="height:25pt"><td style="width:539pt" colspan="3" bgcolor="#000000"><p class="s1" style="padding-top: 3pt;padding-left: 244pt;padding-right: 245pt;text-indent: 0pt;line-height: 10pt;text-align: center;">If needed, type of request</p>
+</td></tr><tr style="height:40pt">
+
+	<tr style="height:21pt; width:970;">
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Project Name: </p></td>
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Address: </p></td>
+	<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">&nbsp;</p></td></tr>
+
+
+	<tr style="height:21pt; width: 970;">
+		<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"  colspan="2"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Company Address: {{user.address_line1}}</p></td>
+
+		<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Address Line 2: {{user.address_line2}}</p></td>
+
+	</tr>
+
+	<tr style="height:21pt; width:970;">
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">City: {{user.city}}</p></td>
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">State: {{user.state_or_territory}}</p></td>
+	<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Zip Code: {{user.zipcode}}</p></td></tr>
+
+
+	<tr style="height:21pt; width: 970;">
+		<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"  ><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Phone Number:</p></td>
+
+		<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"colspan="2"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Email Address: {{user.email}}</p></td>
+
+	</tr>
+
+	</table>
+
+	<p style="padding-top: 2pt;padding-left: 9pt;text-indent: 0pt;line-height: 124%;text-align: left;"><a href="mailto:daniel@aps-payroll.com" class="a" target="_blank"><p>Waiver of Subrogation or Alternate Employer Endorsements cost $250 each, to be charged on your next payroll invoice or credit card should you choose, and take at least 2 business days to process.</p> <p>There is no charge for a standard Certificate of Insurance without the Waiver of Subrogation or Alternate Employer Endorsement. Submit this form by email to </p></a>daniel@aps-payroll.com or by fax to (813) 413-2897 for processing.</p><p class="s5" style="padding-top: 7pt;padding-left: 8pt;text-indent: 0pt;line-height: 21pt;text-align: left;">Daniel Rhys Johnson                            <span class="s6">    </span>                         </p><h2 style="padding-left: 9pt;text-indent: 0pt;line-height: 9pt;text-align: left;">Client Signature Date</h2></body></html>
+

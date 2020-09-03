@@ -1,0 +1,84 @@
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'accounts/csstesting.css' %}">
+
+
+
+<html lang="en">
+
+<meta charset="utf-8">
+<title>Log in page</title>
+
+
+
+<!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.-->
+<script>var __adobewebfontsappname__="dreamweaver"</script><script src="http://use.edgefonts.net/open-sans:n3:default.js" type="text/javascript"></script>
+
+
+<body>
+	<style>
+	body {background-color: #e9faff;}
+	</style>
+
+<div class="limiter">
+<div class="container-login100">
+<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+
+<form class="login100-form validate-form">
+
+
+<span class="login100-form-title p-b-33">
+<strong>
+	<h1 style="color:#4d88ff;font-size:50px;">Account Login</h1>
+		</strong>
+</span>
+<form method="POST">
+{% csrf_token %}
+	{{form.as_p}}
+<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+	<input type="text" class="input100" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" id="id_username" placeholder="Username" required>
+
+<span class="focus-input100-1"></span>
+<span class="focus-input100-2"></span>
+</div>
+
+<div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+	<input type="password" class="input100" name="password" autocomplete="current-password" id="id_password" placeholder="Password" required >
+
+<span class="focus-input100-1"></span>
+<span class="focus-input100-2"></span>
+</div>
+
+
+<div class="container-login100-form-btn m-t-20">
+
+
+<button class="login100-form-btn">Sign in</button>
+
+</div>
+
+<div class="text-center p-t-45 p-b-4">
+<span class="txt1">
+Forgot
+</span>
+<a href="#" class="txt2 hov1">
+Username / Password?
+</a>
+</div>
+<div class="text-center">
+<span class="txt1">
+Create an account?
+</span>
+<a href="#" class="txt2 hov1">
+Sign up
+</a>
+</div>
+</form>
+</form>
+</div>
+</div>
+</div>
+
+</body>
+
+</html>
