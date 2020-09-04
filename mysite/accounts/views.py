@@ -69,7 +69,7 @@ class getRequesterView(generic.DetailView):
     # return render(request, 'rChoose.html', {'form': form})
 
 
-
+@login_required()
 def CertHolderView(request, pk = None):
     if pk:
         cRequester = Requester.objects.get(id=pk)

@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.contrib.auth.decorators import login_required
 
 from django.urls import path
 
@@ -21,7 +22,7 @@ urlpatterns = [
     path('password/', views.edit_password, name='password'),
     #path('<int:pk>/viewdoc/', views.viewdoc, name='viewdoc')
     path('<int:pk>/certholder/', views.CertHolderView, name='certholder'),
-    path('rChoose/', views.getRequesterView.as_view(), name='rChoose'),
+    path('rChoose/', login_required(views.getRequesterView.as_view()), name='rChoose'),
     path('<int:requester_pk>/<int:pk>/viewdoc/', views.GeneratePdf.as_view(), name='viewdoc')
 
     # path(
