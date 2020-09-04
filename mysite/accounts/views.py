@@ -112,16 +112,16 @@ def CertHolderView(request, pk = None):
 #         queryset = Recipient.objects.filter(user_id = user)
 #         return render(request,queryset)
 
+class GeneratePdf(View):
+    def get(self, request, pk = None, requester_pk = None):
+        if pk:
+            cRequester = Requester.objects.get(id = requester_pk)
+            recipientdisplay = Recipient.objects.get(id=pk)
 
-def GeneratePdf(request, pk = None, requester_pk = None):
-    if pk:
-        cRequester = Requester.objects.all().filter(id = requester_pk)
-        recipientdisplay = Recipient.objects.all().filter(id=pk)
+            data = {'requester': cRequester, 'recipient': recipientdisplay}
 
-        data = {'requester': cRequester, 'recipient': recipientdisplay}
-
-        pdf = render_to_pdf('COIDoc.html', data)
-        return HttpResponse(pdf, content_type='application/pdf')
+            pdf = render_to_pdf('COIDoc.html', data)
+            return HttpResponse(pdf, content_type='application/pdf')
 
 
 # class GeneratePdf(View):
@@ -165,7 +165,7 @@ class GeneratePDF(View):
 
 @login_required()
 def dashboardView(request):
-    return render(request, 'dashboard.html')
+    return render(request, 'accounts:dashboard.html')
 
 
 def logoutview(request):
@@ -208,7 +208,8 @@ def requesterView(request):
         form.instance.user = request.user
         context['form'] = form
         if form.is_valid():
-            return redirect('dashboard')
+            form.save()
+            return redirect('accounts:home')
     else:
         form = RequesterForm()
     return render(request, 'requester.html', {'form': form}, )
@@ -228,7 +229,7 @@ def edit_profile(request):
         form = RegisterUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('view_profile', pk=request.user.pk)
+            return redirect('accounts:view_profile', pk=request.user.pk)
 
     else:
         form = RegisterUpdateForm(instance=request.user)
@@ -242,7 +243,7 @@ def edit_password(request):
         form= UpdatePasswordForm(request.POST, instance= request.user)
         if form.is_valid():
             form.save()
-            return redirect('view_profile', pk=request.user.pk)
+            return redirect('accounts:view_profile', pk=request.user.pk)
     else:
         form= UpdatePasswordForm()
         args={'form': form}
@@ -304,10 +305,10 @@ def loginview(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('home')
+            return redirect('accounts:home')
     else:
         if request.user.is_authenticated:
-            return redirect('home')
+            return redirect('accounts:home')
         else:
             ...
 

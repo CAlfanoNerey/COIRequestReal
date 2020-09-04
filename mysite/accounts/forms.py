@@ -108,7 +108,6 @@ class RequesterForm(forms.ModelForm):
 
     class Meta:
         model = Requester
-        exclude = ['user']
         fields = ('__all__')
 
 

@@ -27,7 +27,7 @@ TITLE_STATES = [
 
 
 class Requester(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
     name = models.CharField(max_length=200)
     address_line1 = models.CharField(max_length=200)
     address_line2 = models.CharField(blank=True, null=True, max_length=200)

@@ -22,7 +22,7 @@ urlpatterns = [
     #path('<int:pk>/viewdoc/', views.viewdoc, name='viewdoc')
     path('<int:pk>/certholder/', views.CertHolderView, name='certholder'),
     path('rChoose/', views.getRequesterView.as_view(), name='rChoose'),
-    path('<int:requester_pk>/<int:pk>/viewdoc/', views.GeneratePdf, name='viewdoc')
+    path('<int:requester_pk>/<int:pk>/viewdoc/', views.GeneratePdf.as_view(), name='viewdoc')
 
     # path(
     #     'login/',
