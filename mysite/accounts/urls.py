@@ -20,8 +20,9 @@ urlpatterns = [
     path('recipient/', views.recipientView, name='recipient'),
     path('password/', views.edit_password, name='password'),
     #path('<int:pk>/viewdoc/', views.viewdoc, name='viewdoc')
-    path('<int:pk>/certholder/', views.CertHolderView.as_view(), name='certholder'),
-    path('<int:pk>/viewdoc/', views.GeneratePdf.as_view(), name='viewdoc')
+    path('<int:pk>/certholder/', views.CertHolderView, name='certholder'),
+    path('rChoose/', views.getRequesterView.as_view(), name='rChoose'),
+    path('<int:requester_pk>/<int:pk>/viewdoc/', views.GeneratePdf, name='viewdoc')
 
     # path(
     #     'login/',

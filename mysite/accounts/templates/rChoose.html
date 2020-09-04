@@ -26,19 +26,16 @@
 
     {% block content %}
 <div class="container">
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">View Forms</h2>
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Choose Requester</h2>
     <br>
     <br>
-<!--        {% for recipient in recipient %}-->
-<!--        <a href="/accounts/{{ recipient.id }}/viewdoc" class="list-group-item list-group-item-action">{{ recipient.name }}</a>-->
-<!--        {% endfor %}-->
-
-    {% for recipientdisplay in recipientdisplay %}
-        <a href="{% url 'accounts:viewdoc' requester_pk=cRequester.pk pk=recipientdisplay.pk %}" class="list-group-item list-group-item-action">{{ recipientdisplay.name }}</a>
+        {% for requesterdisplay in requesterdisplay %}
+        <a href="{% url 'accounts:certholder' pk=requesterdisplay.pk %}" class="list-group-item list-group-item-action">{{ requesterdisplay.name }}</a>
         {% endfor %}
+
+
     </div>
 {% endblock %}
-
 
 
 

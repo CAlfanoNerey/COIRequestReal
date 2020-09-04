@@ -14,7 +14,8 @@ from django.views import generic, View
 from django.views.generic import ListView
 from xhtml2pdf import pisa
 
-from .forms import RequesterForm, RecipientForm, RegistrationForm, RegisterUpdateForm, UpdatePasswordForm
+from .forms import RequesterForm, RecipientForm, RegistrationForm, RegisterUpdateForm, UpdatePasswordForm, \
+    RequesterDisplayForm
 
 from django.views.generic.edit import CreateView, UpdateView
 from .models import Recipient, Requester, User
@@ -37,24 +38,73 @@ class viewdoc(generic.DetailView):
     template_name = 'COIDoc2.html'
 
 
-class CertHolderView(View):
+# class PickRequesterView(View):
+#     def get(self, request, *args, **kwargs):
+#         user = request.user
+#         requesterDisplay=
+
+class getRequesterView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
 
-        user = request.user
-        currUser = User.objects.get(id = user.pk)
-        userdisplay = User.objects.all()
-        recipientdisplay = Recipient.objects.all().filter(user_id = user)
+        requesterdisplay = Requester.objects.all()
 
-
-        return render(request, 'certholder.html', {
-            'currUser': currUser,
-            'user': userdisplay,
-            'recipient': recipientdisplay,
-            'error_message': "You didn't select a choice.",
+        return render(request, 'rChoose.html', {
+            'requesterdisplay': requesterdisplay,
         })
-        template_name = 'certholder.html'
-        return render(request, template_name,data)
+        template_name = 'rChoose.html'
+        return render(request, template_name, data)
+
+    # if request.method == "POST":
+    #     context = {}
+    #     form = RequesterDisplayForm(request.POST)
+    #
+    #     context['form'] = form
+    #
+    #     if form.is_valid():
+    #         name = form.requester_id()
+    #         return redirect('certholder', {'slug':name} )
+    # else:
+    #     form = RequesterDisplayForm()
+    # return render(request, 'rChoose.html', {'form': form})
+
+
+
+def CertHolderView(request, pk = None):
+    if pk:
+        cRequester = Requester.objects.get(id=pk)
+
+        recipientdisplay = Recipient.objects.all().filter(Requester_id = pk)
+
+    args = {'cRequester':cRequester, 'recipientdisplay':recipientdisplay}
+
+
+    return render(request, 'certholder.html', args)
+
+
+# class CertHolderView(generic.DetailView):
+#
+#     def get(self, request, *args, **kwargs):
+#
+#         # user = request.user
+#         # currUser = User.objects.get(id = user.pk)
+#         # userdisplay = User.objects.all()
+#         # recipientdisplay = Recipient.objects.all().filter(user_id = user)
+#
+#
+#         requesterdisplay = Requester.objects.all()
+#         recipientdisplay = Recipient.objects.all().filter(Requester.Requester_id )
+#
+#         #currRequester
+#
+#         return render(request, 'certholder.html', {
+#             'currUser': currUser,
+#             'user': userdisplay,
+#             'recipient': recipientdisplay,
+#             'error_message': "You didn't select a choice.",
+#         })
+#         template_name = 'certholder.html'
+#         return render(request, template_name,data)
 
 # class CertHolderView(ListView):
 #     def get(self, request, *args, **kwargs):
@@ -62,19 +112,31 @@ class CertHolderView(View):
 #         queryset = Recipient.objects.filter(user_id = user)
 #         return render(request,queryset)
 
-class GeneratePdf(View):
-    def get(self, request, *args, **kwargs):
-        user = request.user
 
-        userdisplay = User.objects.get(id = user.id)
-        recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
-        data = {
-            # 'user' : request.user.name,
-            'user': userdisplay,
-            'recipient': recipientdisplay
-        }
+def GeneratePdf(request, pk = None, requester_pk = None):
+    if pk:
+        cRequester = Requester.objects.all().filter(id = requester_pk)
+        recipientdisplay = Recipient.objects.all().filter(id=pk)
+
+        data = {'requester': cRequester, 'recipient': recipientdisplay}
+
         pdf = render_to_pdf('COIDoc.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
+
+
+# class GeneratePdf(View):
+#     def get(self, request, *args, **kwargs):
+#         user = request.user
+#
+#         userdisplay = User.objects.get(id = user.id)
+#         recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
+#         data = {
+#             # 'user' : request.user.name,
+#             'user': userdisplay,
+#             'recipient': recipientdisplay
+#         }
+#         pdf = render_to_pdf('COIDoc.html', data)
+#         return HttpResponse(pdf, content_type='application/pdf')
 
 
 
@@ -146,7 +208,6 @@ def requesterView(request):
         form.instance.user = request.user
         context['form'] = form
         if form.is_valid():
-            form.save()
             return redirect('dashboard')
     else:
         form = RequesterForm()
@@ -206,14 +267,14 @@ def recipientView(request):
 
         context = {}
         form = RecipientForm(request.POST)
-        form.instance.user = request.user
+        # form.instance.user = request.user
         context['form'] = form
 
 
         if form.is_valid():
 
             form.save()
-            return redirect('home')
+            return redirect('accounts:home')
     else:
         form = RecipientForm()
     return render(request, 'recipient.html', {'form': form}, )

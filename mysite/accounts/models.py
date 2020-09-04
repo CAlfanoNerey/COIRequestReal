@@ -38,6 +38,9 @@ class Requester(models.Model):
     zipcode = models.PositiveIntegerField(validators=[MaxValueValidator(99999)])
     fax = models.IntegerField(blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
 
 class User(AbstractUser):
 
@@ -69,7 +72,9 @@ class UserProfile(models.Model):
 
 class Recipient(models.Model):
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    Requester = models.ForeignKey(Requester, on_delete=models.CASCADE)
+
+
     name = models.CharField(max_length=200)
     address_line1 = models.CharField(max_length=200)
     address_line2 = models.CharField(blank=True, null=True,max_length=200)

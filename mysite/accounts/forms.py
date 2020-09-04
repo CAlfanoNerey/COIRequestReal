@@ -1,5 +1,5 @@
 from django import forms
-#from django.contrib.auth import models
+# from django.contrib.auth import models
 from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, UserCreationForm
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, RegexValidator
@@ -9,28 +9,38 @@ from .models import Requester, Recipient, User
 # from django.contrib.auth.forms import UserCreationForm
 #
 TITLE_STATES = [
-    ('1','Alabama'), ('2','Alaska'), ('3','American Samoa'), ('4','Arizona'), ('5','Arkansas'), ('6','California'), ('7','Colorado'), ('8','Connecticut'), ('9','Delaware'),
-    ('10','District of Columbia'), ('11','Florida'), ('12','Georgia'), ('13','Guam'), ('14','Hawaii'), ('15','Idaho'), ('16','Illinois'), ('17','Indiana'), ('18','Iowa'), ('19','Kansas'),
-    ('20','Kentucky'), ('21','Louisiana'), ('22','Maine'), ('23','Maryland'), ('24','Massachusetts'), ('25','Michigan'), ('26','Minnesota'), ('27','Minor Outlying Islands'),
-    ('28','Mississippi'), ('29','Missouri'), ('30','Montana'), ('31','Nebraska'), ('32','Nevada'), ('33','New Hampshire'), ('34','New Jersey'), ('35','New Mexico'), ('36','New York'),
-    ('37','North Carolina'), ('38','North Dakota'), ('39','Northern Mariana Islands'), ('40','Ohio'), ('41','Oklahoma'), ('42','Oregon'), ('43','Pennsylvania'), ('44','Puerto Rico'),
-    ('45','Rhode Island'), ('46','South Carolina'), ('47','South Dakota'), ('49','Tennessee'), ('50','Texas'), ('51','U.S. Virgin Islands'), ('52','Utah'), ('53','Vermont'), ('54','Virginia'),
-    ('55','Washington'), ('56','West Virginia'), ('57','Wisconsin'), ('58','Wyoming'),
+    ('1', 'Alabama'), ('2', 'Alaska'), ('3', 'American Samoa'), ('4', 'Arizona'), ('5', 'Arkansas'),
+    ('6', 'California'), ('7', 'Colorado'), ('8', 'Connecticut'), ('9', 'Delaware'),
+    ('10', 'District of Columbia'), ('11', 'Florida'), ('12', 'Georgia'), ('13', 'Guam'), ('14', 'Hawaii'),
+    ('15', 'Idaho'), ('16', 'Illinois'), ('17', 'Indiana'), ('18', 'Iowa'), ('19', 'Kansas'),
+    ('20', 'Kentucky'), ('21', 'Louisiana'), ('22', 'Maine'), ('23', 'Maryland'), ('24', 'Massachusetts'),
+    ('25', 'Michigan'), ('26', 'Minnesota'), ('27', 'Minor Outlying Islands'),
+    ('28', 'Mississippi'), ('29', 'Missouri'), ('30', 'Montana'), ('31', 'Nebraska'), ('32', 'Nevada'),
+    ('33', 'New Hampshire'), ('34', 'New Jersey'), ('35', 'New Mexico'), ('36', 'New York'),
+    ('37', 'North Carolina'), ('38', 'North Dakota'), ('39', 'Northern Mariana Islands'), ('40', 'Ohio'),
+    ('41', 'Oklahoma'), ('42', 'Oregon'), ('43', 'Pennsylvania'), ('44', 'Puerto Rico'),
+    ('45', 'Rhode Island'), ('46', 'South Carolina'), ('47', 'South Dakota'), ('49', 'Tennessee'), ('50', 'Texas'),
+    ('51', 'U.S. Virgin Islands'), ('52', 'Utah'), ('53', 'Vermont'), ('54', 'Virginia'),
+    ('55', 'Washington'), ('56', 'West Virginia'), ('57', 'Wisconsin'), ('58', 'Wyoming'),
 
 ]
 
-class RegisterUpdateForm(UserChangeForm):
 
+
+
+class RegisterUpdateForm(UserChangeForm):
     class Meta:
         model = User
-        exclude= ['last_login', 'is_superuser', 'is_staff', 'is_active', 'user_permissions', 'date_joined', 'groups','password']
+        exclude = ['last_login', 'is_superuser', 'is_staff', 'is_active', 'user_permissions', 'date_joined', 'groups',
+                   'password']
         fields = '__all__'
 
 
 class RegistrationForm(UserCreationForm):
     username = forms.CharField()
-    #validators = [RegexValidator('^(\w+\d+|\d+\w+)+$', message="Password should be a combination of Alphabets and Numbers")]
-    email = forms.EmailField(required = True)
+    # validators = [RegexValidator('^(\w+\d+|\d+\w+)+$', message="Password should be a combination of Alphabets and Numbers")]
+    email = forms.EmailField(required=True)
+
     # error_messages = {
     #     'password_mismatch': "The two password fields didn't match.",
     # }
@@ -52,30 +62,28 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        exclude = ['last_login', 'is_superuser', 'is_staff', 'is_active', 'user_permissions', 'date_joined', 'groups','password']
+        exclude = ['last_login', 'is_superuser', 'is_staff', 'is_active', 'user_permissions', 'date_joined', 'groups',
+                   'password']
         fields = ('__all__')
 
+        # 'name',
+        # 'first_name',
+        # 'last_name',
+        # 'email',
+        # 'address_line1',
+        # 'address_line2',
+        # 'city',
+        # 'state_or_territory',
+        # 'zipcode',
+        # 'fax',
+        #       )
 
-            # 'name',
-            # 'first_name',
-            # 'last_name',
-            # 'email',
-            # 'address_line1',
-            # 'address_line2',
-            # 'city',
-            # 'state_or_territory',
-            # 'zipcode',
-            # 'fax',
-            #       )
 
 class UpdatePasswordForm(UserCreationForm):
-
-
     class Meta:
-
-        model= User
-        exclude= [
-            #'name',
+        model = User
+        exclude = [
+            # 'name',
             # 'first_name',
             # 'last_name',
             # 'email',
@@ -91,7 +99,6 @@ class UpdatePasswordForm(UserCreationForm):
         ]
 
 
-
 class RequesterForm(forms.ModelForm):
     # addresLine1 = forms.CharField(label = 'Address Line 1', max_length=200,)
     # addresLine2 = forms.CharField(required=False)
@@ -104,13 +111,23 @@ class RequesterForm(forms.ModelForm):
         exclude = ['user']
         fields = ('__all__')
 
-class RecipientForm(forms.ModelForm):
 
+class RecipientForm(forms.ModelForm):
     class Meta:
         model = Recipient
-        exclude = ['user']
-        fields = ('__all__') #('user', 'name', 'address_line1', 'address_line2', 'city','state','email', 'zipcode', 'fax')
+        # exclude = ['user']
+        fields = (
+            '__all__')  # ('user', 'name', 'address_line1', 'address_line2', 'city','state','email', 'zipcode', 'fax')
 
+
+class RequesterDisplayForm(forms.ModelForm):
+    name = forms.CharField()
+    class Meta:
+        model = Requester
+        fields = ('name',)
+
+    def get_name(self):
+        return self.name
 
 class LoginForm(AuthenticationForm):
     def confirm_login_allowed(self, user):
