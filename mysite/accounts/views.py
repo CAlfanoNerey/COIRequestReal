@@ -42,11 +42,13 @@ class CertHolderView(View):
     def get(self, request, *args, **kwargs):
 
         user = request.user
+        currUser = User.objects.get(id = user.pk)
         userdisplay = User.objects.all()
         recipientdisplay = Recipient.objects.all().filter(user_id = user)
 
 
         return render(request, 'certholder.html', {
+            'currUser': currUser,
             'user': userdisplay,
             'recipient': recipientdisplay,
             'error_message': "You didn't select a choice.",

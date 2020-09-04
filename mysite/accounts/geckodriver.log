@@ -43,14 +43,26 @@ JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't fin
 console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
 1599155056118	Marionette	INFO	Listening on port 25959
 1599155056469	Marionette	WARN	TLS certificate errors will be ignored for this session
-1599155134487	geckodriver	INFO	Listening on 127.0.0.1:26035
-1599155137499	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\calfa\\AppData\\Local\\Temp\\rust_mozprofileA9nY6P"
+1599162246505	Marionette	INFO	Stopped listening on port 25959
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+Temp\\rust_mozprofileA9nY6P"
 JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
 console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
 1599155138514	Marionette	INFO	Listening on port 26044
 1599155139064	Marionette	WARN	TLS certificate errors will be ignored for this session
-1599155435556	geckodriver	INFO	Listening on 127.0.0.1:26166
-1599155438568	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\calfa\\AppData\\Local\\Temp\\rust_mozprofilebKt8O1"
+1599162246536	Marionette	INFO	Stopped listening on port 26044
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+Temp\\rust_mozprofilebKt8O1"
 JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
 console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
 1599155439771	Marionette	INFO	Listening on port 26174

@@ -41,17 +41,17 @@ class Requester(models.Model):
 
 class User(AbstractUser):
 
-    name = models.CharField(max_length=200, default='')
-
-
-    address_line1 = models.CharField(max_length=200,default='')
-    address_line2 = models.CharField(blank=True, null=True, max_length=200,default='')
-    # state = models.ForeignKey('States', null=True, blank=True)
-    city = models.CharField(max_length=200,default='')
-    state_or_territory = models.CharField(max_length=40, choices=TITLE_STATES,default='')
-    # zipcode = models.PositiveIntegerField(blank=True, null=True)
-    zipcode = models.PositiveIntegerField(validators=[MaxValueValidator(99999)],default=0)
-    fax = models.IntegerField(blank=True, null=True,default=0)
+    #name = models.CharField(max_length=200, default='')
+    #
+    #
+    # address_line1 = models.CharField(max_length=200,default='')
+    # address_line2 = models.CharField(blank=True, null=True, max_length=200,default='')
+    # # state = models.ForeignKey('States', null=True, blank=True)
+    # city = models.CharField(max_length=200,default='')
+    # state_or_territory = models.CharField(max_length=40, choices=TITLE_STATES,default='')
+    # # zipcode = models.PositiveIntegerField(blank=True, null=True)
+    # zipcode = models.PositiveIntegerField(validators=[MaxValueValidator(99999)],default=0)
+    #fax = models.IntegerField(blank=True, null=True,default=0)
 
     def __str__(self):
         return self.username

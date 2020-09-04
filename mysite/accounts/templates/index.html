@@ -32,36 +32,43 @@
             <ul class="nav navbar-nav navbar-left">
 
 
-                {% if user.is_authenticated %}
+<!--                {% if user.is_authenticated %}-->
 <!--                <li><a href='/accounts/{{ user.pk }}/profile'>View Profile</a></li>-->
 <!--                    <li><a href={% url 'requester_update' %}>Update Info</a></li>-->
 <!--                &lt;!&ndash;li><a href="/accounts/{{user.id}}/requesterupdate">Update Info</a></li&ndash;&gt;-->
 <!--                <li><a href="/accounts/logout/">Logout</a></li>-->
 <!--                    <li><a href="/accounts/recipient">Draft a request</a></li>-->
 <!--                <li><a href="/accounts/{{user.pk}}/certholder">View Forms</a></li>-->
-                {% else %}
-                <li><a href="/accounts/register/">Register</a></li>
-                <li><a href="/accounts/login/">Login</a></li>
-                {% endif %}
+<!--                {% else %}-->
+<!--                <li><a href="/accounts/register/">Register</a></li>-->
+<!--                <li><a href="/accounts/login/">Login</a></li>-->
+<!--                {% endif %}-->
             </ul>
           </div><!--/.nav-collapse -->
+                {% block navbar %}
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         {% if user.is_authenticated %}
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/{{ user.pk }}/profile">Profile</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'requester_update' %}">Update Info</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/logout/">Logout</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/recipient">Request</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/requester/">Requester</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/recipient">Recipient</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/{{user.pk}}/certholder">View Forms</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/logout/">Logout</a></li>
+<!--                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li>-->
                         {% else %}
-
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/register/">Register</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/login/">login</a></li>
                         {% endif %}
                     </ul>
                 </div>
+                {% endblock %}
             </div>
         </nav>
         <!-- Masthead-->
+        {% block jumbotron %}
+
+        {% endblock %}
         {% block home %}
         <header class="masthead bg-primary text-white text-center">
             <div class="container d-flex align-items-center flex-column">
