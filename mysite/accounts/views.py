@@ -1,6 +1,7 @@
 import datetime
 from io import BytesIO
 
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login
 
 from django.db.backends.utils import logger
@@ -43,6 +44,7 @@ class viewdoc(generic.DetailView):
 #         user = request.user
 #         requesterDisplay=
 
+
 class getRequesterView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
@@ -54,6 +56,23 @@ class getRequesterView(generic.DetailView):
         })
         template_name = 'rChoose.html'
         return render(request, template_name, data)
+
+
+@staff_member_required()
+def editRequesterView(request, pk = None):
+    if pk:
+        requesterrec = Requester.objects.get(id=pk)
+        form = RequesterForm(instance=requesterrec)
+        if request.method == 'POST':
+            form = RequesterForm(request.POST, instance=requesterrec)
+            form.save()
+            return redirect('accounts:rChoose')
+
+    args = {'requester': requesterrec, 'form': form}
+
+    return render(request, 'editrequester.html', args)
+
+
 
     # if request.method == "POST":
     #     context = {}
@@ -69,7 +88,7 @@ class getRequesterView(generic.DetailView):
     # return render(request, 'rChoose.html', {'form': form})
 
 
-@login_required()
+@staff_member_required
 def CertHolderView(request, pk = None):
     if pk:
         cRequester = Requester.objects.get(id=pk)
@@ -80,6 +99,22 @@ def CertHolderView(request, pk = None):
 
 
     return render(request, 'certholder.html', args)
+
+
+@staff_member_required()
+def editRecipientView(request, pk=None,):
+    if pk:
+        getrecipient = Recipient.objects.get(Requester_id=pk)
+        key = Recipient.objects.get(Requester_id=pk)
+        form = RecipientForm(instance=getrecipient)
+        if request.method == 'POST':
+            form = RecipientForm(request.POST, instance=getrecipient)
+            form.save()
+            return redirect("accounts:certholder", pk=key.id)
+
+    args = {'recipient': getrecipient, 'form': form}
+
+    return render(request, 'editrecipient.html', args)
 
 
 # class CertHolderView(generic.DetailView):
@@ -112,6 +147,7 @@ def CertHolderView(request, pk = None):
 #         queryset = Recipient.objects.filter(user_id = user)
 #         return render(request,queryset)
 
+
 class GeneratePdf(View):
     def get(self, request, pk = None, requester_pk = None):
         if pk:
@@ -140,27 +176,27 @@ class GeneratePdf(View):
 
 
 
-class GeneratePDF(View):
-    def get(self, request, *args, **kwargs):
-        template = get_template('invoice.html')
-        context = {
-            "invoice_id": 123,
-            "customer_name": "John Cooper",
-            "amount": 1399.99,
-            "today": "Today",
-        }
-        html = template.render(context)
-        pdf = render_to_pdf('invoice.html', context)
-        if pdf:
-            response = HttpResponse(pdf, content_type='application/pdf')
-            filename = "Invoice_%s.pdf" %("12341231")
-            content = "inline; filename='%s'" %(filename)
-            download = request.GET.get("download")
-            if download:
-                content = "attachment; filename='%s'" %(filename)
-            response['Content-Disposition'] = content
-            return response
-        return HttpResponse("Not found")
+# class GeneratePDF(View):
+#     def get(self, request, *args, **kwargs):
+#         template = get_template('invoice.html')
+#         context = {
+#             "invoice_id": 123,
+#             "customer_name": "John Cooper",
+#             "amount": 1399.99,
+#             "today": "Today",
+#         }
+#         html = template.render(context)
+#         pdf = render_to_pdf('invoice.html', context)
+#         if pdf:
+#             response = HttpResponse(pdf, content_type='application/pdf')
+#             filename = "Invoice_%s.pdf" %("12341231")
+#             content = "inline; filename='%s'" %(filename)
+#             download = request.GET.get("download")
+#             if download:
+#                 content = "attachment; filename='%s'" %(filename)
+#             response['Content-Disposition'] = content
+#             return response
+#         return HttpResponse("Not found")
 
 
 @login_required()
@@ -173,7 +209,7 @@ def logoutview(request):
 
 class SignUpView(CreateView):
     form_class = RegistrationForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('accounts:login')
     template_name = 'registration/register.html'
 
 
@@ -193,7 +229,7 @@ class SignUpView(CreateView):
 #     return render(request, 'registration/register.html', {'form': form})
 
 
-@login_required()
+@staff_member_required
 def requesterView(request):
     # context= {}
     # form = RequesterForm(request.POST)
@@ -256,7 +292,7 @@ def edit_password(request):
 
 
 
-@login_required()
+@staff_member_required
 def recipientView(request):
     # context= {}
     # form = RequesterForm(request.POST)

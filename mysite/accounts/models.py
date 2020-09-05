@@ -84,6 +84,9 @@ class Recipient(models.Model):
     email = models.CharField(max_length=200)
     fax = models.IntegerField(blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
 
 
 # this method is mainly to create new users inside of the django admin

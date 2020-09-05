@@ -84,9 +84,9 @@ class UpdatePasswordForm(UserCreationForm):
         model = User
         exclude = [
             # 'name',
-            # 'first_name',
-            # 'last_name',
-            # 'email',
+            'first_name',
+            'last_name',
+            'email',
             # 'address_line1',
             # 'address_line2',
             # 'city',

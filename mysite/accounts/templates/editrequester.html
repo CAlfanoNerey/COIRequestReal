@@ -1,6 +1,5 @@
 
 <title>Profile</title>
-
 {% extends 'index.html' %}
 
 {% block navbar %}
@@ -27,38 +26,14 @@
 
     {% block content %}
 <div class="container">
-
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Choose Requester</h2>
-    <style>
-        .column {
-          float: left;
-          padding: 5px;
-        }
-
-        .right {
-          width: 25%;
-        }
-
-        .left {
-          width: 75%;
-        }
-    </style>
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Edit {{requester.name}}'s Profile</h2>
     <br>
     <br>
-
-
-        {% for requesterdisplay in requesterdisplay %}
-        <div class="row">
-        <div class="column left">
-            <a href="{% url 'accounts:certholder' pk=requesterdisplay.pk %}" class="list-group-item list-group-item-action">{{ requesterdisplay.name }}</a>
-        </div>
-        <div class="column right">
-            <a href="{% url 'accounts:editrequester' pk=requesterdisplay.pk %}" class="list-group-item list-group-item-action">Edit</a>
-        </div>
-            </div>
-        {% endfor %}
-
-
+        <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button class="btn btn-success" type="submit" name = "button" " >Submit</button>
+        </form>
 
 
     </div>

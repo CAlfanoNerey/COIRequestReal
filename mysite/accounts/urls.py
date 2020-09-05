@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 from django.urls import path
 
@@ -21,9 +22,11 @@ urlpatterns = [
     path('recipient/', views.recipientView, name='recipient'),
     path('password/', views.edit_password, name='password'),
     #path('<int:pk>/viewdoc/', views.viewdoc, name='viewdoc')
+    path('rChoose/', staff_member_required(views.getRequesterView.as_view()), name='rChoose'),
+    path('<int:pk>/editrequester/', views.editRequesterView, name='editrequester'),
+    path('<int:pk>/editrecipient/', views.editRecipientView, name='editrecipient'),
     path('<int:pk>/certholder/', views.CertHolderView, name='certholder'),
-    path('rChoose/', login_required(views.getRequesterView.as_view()), name='rChoose'),
-    path('<int:requester_pk>/<int:pk>/viewdoc/', views.GeneratePdf.as_view(), name='viewdoc')
+    path('<int:requester_pk>/<int:pk>/viewdoc/', staff_member_required(views.GeneratePdf.as_view()), name='viewdoc')
 
     # path(
     #     'login/',

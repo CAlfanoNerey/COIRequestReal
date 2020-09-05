@@ -27,15 +27,38 @@
     {% block content %}
 <div class="container">
         <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Select Recipient</h2>
+    <style>
+        .column {
+          float: left;
+          padding: 5px;
+        }
+
+        .right {
+          width: 25%;
+        }
+
+        .left {
+          width: 75%;
+        }
+    </style>
     <br>
     <br>
 <!--        {% for recipient in recipient %}-->
 <!--        <a href="/accounts/{{ recipient.id }}/viewdoc" class="list-group-item list-group-item-action">{{ recipient.name }}</a>-->
 <!--        {% endfor %}-->
 
+
     {% for recipientdisplay in recipientdisplay %}
-        <a href="{% url 'accounts:viewdoc' requester_pk=cRequester.pk pk=recipientdisplay.pk %}" class="list-group-item list-group-item-action">{{ recipientdisplay.name }}</a>
+        <div class="row">
+        <div class="column left">
+            <a href="{% url 'accounts:viewdoc' requester_pk=cRequester.pk pk=recipientdisplay.pk %}" class="list-group-item list-group-item-action">{{ recipientdisplay.name }}</a>
+        </div>
+        <div class="column right">
+            <a href="{% url 'accounts:editrecipient' pk=recipientdisplay.pk %}" class="list-group-item list-group-item-action">Edit</a>
+        </div>
+            </div>
         {% endfor %}
+
     </div>
 {% endblock %}
 
