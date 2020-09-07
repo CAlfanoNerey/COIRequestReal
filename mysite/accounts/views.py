@@ -21,7 +21,6 @@ from .forms import RequesterForm, RecipientForm, RegistrationForm, RegisterUpdat
 from django.views.generic.edit import CreateView, UpdateView
 from .models import Recipient, Requester, User
 
-
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth import views as auth_views
@@ -32,6 +31,7 @@ from .utils import render_to_pdf
 
 def indexView(request):
     return render(request, 'index.html')
+
 
 class viewdoc(generic.DetailView):
     model = Recipient
@@ -48,7 +48,6 @@ class viewdoc(generic.DetailView):
 class getRequesterView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
-
         requesterdisplay = Requester.objects.all()
 
         return render(request, 'rChoose.html', {
@@ -59,7 +58,7 @@ class getRequesterView(generic.DetailView):
 
 
 @staff_member_required()
-def editRequesterView(request, pk = None):
+def editRequesterView(request, pk=None):
     if pk:
         requesterrec = Requester.objects.get(id=pk)
         form = RequesterForm(instance=requesterrec)
@@ -71,8 +70,6 @@ def editRequesterView(request, pk = None):
     args = {'requester': requesterrec, 'form': form}
 
     return render(request, 'editrequester.html', args)
-
-
 
     # if request.method == "POST":
     #     context = {}
@@ -88,24 +85,23 @@ def editRequesterView(request, pk = None):
     # return render(request, 'rChoose.html', {'form': form})
 
 
-@staff_member_required
-def CertHolderView(request, pk = None):
+@staff_member_required()
+def CertHolderView(request, pk=None):
     if pk:
         cRequester = Requester.objects.get(id=pk)
 
-        recipientdisplay = Recipient.objects.all().filter(Requester_id = pk)
+        recipientdisplay = Recipient.objects.all().filter(Requester_id=pk)
 
-    args = {'cRequester':cRequester, 'recipientdisplay':recipientdisplay}
-
+    args = {'cRequester': cRequester, 'recipientdisplay': recipientdisplay}
 
     return render(request, 'certholder.html', args)
 
 
 @staff_member_required()
-def editRecipientView(request, pk=None,):
+def editRecipientView(request, pk=None, ):
     if pk:
-        getrecipient = Recipient.objects.get(Requester_id=pk)
-        key = Recipient.objects.get(Requester_id=pk)
+        getrecipient = Recipient.objects.get(id=pk)
+        key = Recipient.objects.get(id=pk)
         form = RecipientForm(instance=getrecipient)
         if request.method == 'POST':
             form = RecipientForm(request.POST, instance=getrecipient)
@@ -149,9 +145,9 @@ def editRecipientView(request, pk=None,):
 
 
 class GeneratePdf(View):
-    def get(self, request, pk = None, requester_pk = None):
+    def get(self, request, pk=None, requester_pk=None):
         if pk:
-            cRequester = Requester.objects.get(id = requester_pk)
+            cRequester = Requester.objects.get(id=requester_pk)
             recipientdisplay = Recipient.objects.get(id=pk)
 
             data = {'requester': cRequester, 'recipient': recipientdisplay}
@@ -173,7 +169,6 @@ class GeneratePdf(View):
 #         }
 #         pdf = render_to_pdf('COIDoc.html', data)
 #         return HttpResponse(pdf, content_type='application/pdf')
-
 
 
 # class GeneratePDF(View):
@@ -206,6 +201,7 @@ def dashboardView(request):
 
 def logoutview(request):
     return render(request, 'registration/logged_out.html')
+
 
 class SignUpView(CreateView):
     form_class = RegistrationForm
@@ -245,7 +241,7 @@ def requesterView(request):
         context['form'] = form
         if form.is_valid():
             form.save()
-            return redirect('accounts:home')
+            return redirect('accounts:rChoose')
     else:
         form = RequesterForm()
     return render(request, 'requester.html', {'form': form}, )
@@ -269,27 +265,21 @@ def edit_profile(request):
 
     else:
         form = RegisterUpdateForm(instance=request.user)
-        args= {'form': form}
+        args = {'form': form}
         return render(request, 'edit_profile.html', args)
 
 
 @login_required()
 def edit_password(request):
     if request.method == 'POST':
-        form= UpdatePasswordForm(request.POST, instance= request.user)
+        form = UpdatePasswordForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect('accounts:view_profile', pk=request.user.pk)
     else:
-        form= UpdatePasswordForm()
-        args={'form': form}
+        form = UpdatePasswordForm()
+        args = {'form': form}
         return render(request, 'password.html', args)
-
-
-
-
-
-
 
 
 @staff_member_required
@@ -298,7 +288,7 @@ def recipientView(request):
     # form = RequesterForm(request.POST)
     # context['form'] = form
 
-    #args = {'user': request.user}
+    # args = {'user': request.user}
 
     if request.method == "POST":
 
@@ -307,11 +297,9 @@ def recipientView(request):
         # form.instance.user = request.user
         context['form'] = form
 
-
         if form.is_valid():
-
             form.save()
-            return redirect('accounts:home')
+            return redirect('accounts:rChoose')
     else:
         form = RecipientForm()
     return render(request, 'recipient.html', {'form': form}, )
@@ -323,13 +311,10 @@ def RequesterUpdate(request):
     template_name = "edit_requester.html"
     success_url = 'profile'
 
-   # def getobject(self, *args, **kwargs):
-   #      user_ = self.request.user
-   #      return get_object_or_404(User, user=user_)
 
-
-
-
+# def getobject(self, *args, **kwargs):
+#      user_ = self.request.user
+#      return get_object_or_404(User, user=user_)
 
 
 def loginview(request):
@@ -350,18 +335,6 @@ def loginview(request):
 
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form}, )
-
-
-
-
-
-
-
-
-
-
-
-
 
 # def login_view(request):
 #     if request.method == 'POST':
