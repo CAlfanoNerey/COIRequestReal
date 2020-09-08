@@ -25,9 +25,14 @@ TITLE_STATES = [
 
 ]
 
+class ContactInfo(models.Model):
+    business_name = models.CharField(max_length=200)
+    def __str__(self):
+        return self.business_name
+
 
 class Requester(models.Model):
-
+    business_name = models.ForeignKey(ContactInfo, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     address_line1 = models.CharField(max_length=200)
     address_line2 = models.CharField(blank=True, null=True, max_length=200)
@@ -40,6 +45,8 @@ class Requester(models.Model):
 
     def __str__(self):
         return self.name
+
+
 
 
 class User(AbstractUser):

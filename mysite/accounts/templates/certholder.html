@@ -51,7 +51,7 @@
     {% for recipientdisplay in recipientdisplay %}
         <div class="row">
         <div class="column left">
-            <a href="{% url 'accounts:viewdoc' requester_pk=cRequester.pk pk=recipientdisplay.pk %}" class="list-group-item list-group-item-action">{{ recipientdisplay.name }}</a>
+            <a target="_blank" href="{% url 'accounts:viewdoc' requester_pk=cRequester.pk pk=recipientdisplay.pk %}" class="list-group-item list-group-item-action">{{ recipientdisplay.name }}</a>
         </div>
         <div class="column right">
             <a href="{% url 'accounts:editrecipient' pk=recipientdisplay.pk %}" class="list-group-item list-group-item-action">Edit</a>
