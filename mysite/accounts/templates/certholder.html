@@ -1,6 +1,6 @@
-
 <title>Profile</title>
 {% extends 'index.html' %}
+
 
 {% block navbar %}
 <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -26,8 +26,8 @@
 
     {% block content %}
 <div class="container">
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Select Recipient</h2>
-    <style>
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Certificate holder</h2>
+<style>
         .column {
           float: left;
           padding: 5px;
@@ -41,30 +41,20 @@
           width: 75%;
         }
     </style>
+
     <br>
     <br>
-<!--        {% for recipient in recipient %}-->
-<!--        <a href="/accounts/{{ recipient.id }}/viewdoc" class="list-group-item list-group-item-action">{{ recipient.name }}</a>-->
-<!--        {% endfor %}-->
 
-
-    {% for recipientdisplay in recipientdisplay %}
+        {% for recipient in recipient %}
         <div class="row">
         <div class="column left">
-            <a target="_blank" href="{% url 'accounts:viewdoc' requester_pk=cRequester.pk pk=recipientdisplay.pk %}" class="list-group-item list-group-item-action">{{ recipientdisplay.name }}</a>
+            <a href="/accounts/{{ recipient.id }}/viewdoc" class="list-group-item list-group-item-action">{{ recipient.name }}</a>
         </div>
         <div class="column right">
-            <a href="{% url 'accounts:editrecipient' pk=recipientdisplay.pk %}" class="list-group-item list-group-item-action">Edit</a>
+            <a href="{% url 'accounts:editrecipient' pk=recipient.pk %}" class="list-group-item list-group-item-action">Edit</a>
         </div>
             </div>
         {% endfor %}
 
-    <br>
-        <a class="btn btn-success" name = "button" href="/accounts/recipient">New Recipient</a>
-
     </div>
 {% endblock %}
-
-
-
-

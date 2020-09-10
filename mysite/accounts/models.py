@@ -25,14 +25,12 @@ TITLE_STATES = [
 
 ]
 
-class ContactInfo(models.Model):
-    business_name = models.CharField(max_length=200)
-    def __str__(self):
-        return self.business_name
+TYPES = [('Waiver of Subrogation', 'Waiver of Subrogation'),
+        ('Alternate Employer Endorsement', 'Alternate Employer Endorsement')]
 
 
 class Requester(models.Model):
-    business_name = models.ForeignKey(ContactInfo, on_delete=models.CASCADE)
+
     name = models.CharField(max_length=200)
     address_line1 = models.CharField(max_length=200)
     address_line2 = models.CharField(blank=True, null=True, max_length=200)
@@ -47,21 +45,37 @@ class Requester(models.Model):
         return self.name
 
 
+class Contact(models.Model):
+    yourbusinessname= models.CharField(max_length=200)
+    yourname= models.CharField(max_length=200)
+    address= models.CharField(max_length=200)
+    address2= models.CharField(blank=True, null=True,max_length=200)
+    city= models.CharField(max_length=200)
+    state= models.CharField(max_length=40, choices=TITLE_STATES)
+    zipcode= models.PositiveIntegerField(validators=[MaxValueValidator(99999)])
+    phonenumber=  models.BigIntegerField()
+    email= models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.yourbusinessname
+
+
 
 
 class User(AbstractUser):
 
-    #name = models.CharField(max_length=200, default='')
-    #
-    #
-    # address_line1 = models.CharField(max_length=200,default='')
-    # address_line2 = models.CharField(blank=True, null=True, max_length=200,default='')
-    # # state = models.ForeignKey('States', null=True, blank=True)
-    # city = models.CharField(max_length=200,default='')
-    # state_or_territory = models.CharField(max_length=40, choices=TITLE_STATES,default='')
-    # # zipcode = models.PositiveIntegerField(blank=True, null=True)
-    # zipcode = models.PositiveIntegerField(validators=[MaxValueValidator(99999)],default=0)
-    #fax = models.IntegerField(blank=True, null=True,default=0)
+    name = models.CharField(max_length=200, default='')
+    division= models.ForeignKey(Contact, on_delete=models.CASCADE, default='', null=True)
+
+
+    address_line1 = models.CharField(max_length=200,default='')
+    address_line2 = models.CharField(blank=True, null=True, max_length=200,default='')
+    # state = models.ForeignKey('States', null=True, blank=True)
+    city = models.CharField(max_length=200,default='')
+    state_or_territory = models.CharField(max_length=40, choices=TITLE_STATES,default='')
+    # zipcode = models.PositiveIntegerField(blank=True, null=True)
+    zipcode = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], blank=True, null=True)
+    fax = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.username
@@ -78,9 +92,7 @@ class UserProfile(models.Model):
 
 
 class Recipient(models.Model):
-
-    Requester = models.ForeignKey(Requester, on_delete=models.CASCADE)
-
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     name = models.CharField(max_length=200)
     address_line1 = models.CharField(max_length=200)
@@ -90,9 +102,26 @@ class Recipient(models.Model):
     zipcode = models.PositiveIntegerField(validators=[MaxValueValidator(99999)])
     email = models.CharField(max_length=200)
     fax = models.IntegerField(blank=True, null=True)
+    rtype = models.CharField(max_length=100, choices=TYPES, blank= True, null=True)
+    projectname= models.CharField(blank= True, null=True,max_length=200)
+    address= models.CharField(blank= True, null=True,max_length=200)
+    wcity= models.CharField(blank= True, null=True,max_length=200)
+    wstate= models.CharField(choices=TITLE_STATES, blank= True, null=True,max_length=200)
+    wzipcode= models.CharField(blank= True, null=True,max_length=200)
+    description= models.CharField(max_length=300,blank= True, null=True,)
+    projectsdate= models.DateField(blank= True, null=True)
+    projectedate=models.DateField(blank= True, null=True)
+    employeenum= models.BigIntegerField(blank=True, null=True)
+    cost = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+
+
+
+
+
 
 
 

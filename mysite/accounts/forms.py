@@ -114,7 +114,20 @@ class RequesterForm(forms.ModelForm):
 class RecipientForm(forms.ModelForm):
     class Meta:
         model = Recipient
-        # exclude = ['user']
+        exclude = ['user']
+        labels = {
+            'projectname': 'Project Name',
+            'wcity': 'City',
+            'wstate': 'State',
+            'wzipcode': 'Zipcode',
+            'description': 'Description',
+            'projectsdate': 'Project Start Date',
+            'projectedate': 'Project End Date',
+            'rtype': 'Request Type If Needed',
+            'employeenum': 'Estimated Number of Employees for Project',
+            'cost': 'Estimated Payroll for Project',
+
+        }
         fields = (
             '__all__')  # ('user', 'name', 'address_line1', 'address_line2', 'city','state','email', 'zipcode', 'fax')
 
