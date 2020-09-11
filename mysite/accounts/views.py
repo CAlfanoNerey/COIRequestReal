@@ -329,13 +329,13 @@ class dropPDF(View):
 
         user = request.user
 
-        #contact = Contact.objects.get( contact.id = user.id)
+        contact = Contact.objects.get( id = user.division_id)
         userdisplay = User.objects.get(id=user.id)
         recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
         data = {
             'user': userdisplay,
             'recipient': recipientdisplay,
-            # 'contact' :contact
+            'contact' :contact
         }
         pdf = render_to_pdf('COIDoc.html', data)
         filename = recipientdisplay.name + ".pdf"
