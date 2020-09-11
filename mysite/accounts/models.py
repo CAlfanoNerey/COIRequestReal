@@ -113,7 +113,7 @@ class Recipient(models.Model):
     projectedate=models.DateField(blank= True, null=True)
     employeenum= models.BigIntegerField(blank=True, null=True)
     cost = models.FloatField(blank=True, null=True)
-    pdf = models.FileField(upload_to='/pdf', null=True, blank=True)
+    pdf = models.FileField(upload_to='pdf', null=True, blank=True)
 
     def __str__(self):
         return self.name

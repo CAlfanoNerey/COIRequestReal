@@ -116,7 +116,7 @@ class CertHolderView(View):
 def editRecipientView(request, pk=None):
     if pk:
 
-        getrecipient = Recipient.objects.get(user_id=pk)
+        getrecipient = Recipient.objects.get(id=pk)
         #key = Recipient.objects.get(Requester_id=pk)
         form = RecipientForm(instance=getrecipient)
         if request.method == 'POST':
