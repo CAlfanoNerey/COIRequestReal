@@ -175,12 +175,14 @@ class GeneratePdf(View):
     def get(self, request, *args, **kwargs):
         user = request.user
 
+        contact = Contact.objects.get(id=user.division_id)
         userdisplay = User.objects.get(id = user.id)
         recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
         data = {
             # 'user' : request.user.name,
             'user': userdisplay,
-            'recipient': recipientdisplay
+            'recipient': recipientdisplay,
+            'contact':contact
         }
         pdf = render_to_pdf('COIDoc.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
