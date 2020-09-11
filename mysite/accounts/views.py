@@ -28,7 +28,7 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth import views as auth_views
 
 # Create your views here.
-from .utils import render_to_pdf
+from .utils1 import render_to_pdf
 
 
 def indexView(request):
