@@ -65,7 +65,7 @@ class Contact(models.Model):
 class User(AbstractUser):
 
     name = models.CharField(max_length=200, default='')
-    division= models.ForeignKey(Contact, on_delete=models.CASCADE, default='', null=True)
+    division = models.ForeignKey(Contact, on_delete=models.CASCADE, default='', null=True)
 
 
     address_line1 = models.CharField(max_length=200,default='')
@@ -113,7 +113,7 @@ class Recipient(models.Model):
     projectedate=models.DateField(blank= True, null=True)
     employeenum= models.BigIntegerField(blank=True, null=True)
     cost = models.FloatField(blank=True, null=True)
-    pdf = models.FileField(upload_to='/pdf', null=True, blank=True)
+    pdf = models.FileField(upload_to='pdf', null=True, blank=True)
 
     def __str__(self):
         return self.name
