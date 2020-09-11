@@ -7,7 +7,7 @@ from django.core.mail import EmailMessage
 from django.core.files import File
 
 from django.db.backends.utils import logger
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404, resolve_url
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
@@ -20,9 +20,8 @@ from xhtml2pdf import pisa
 from .forms import RequesterForm, RecipientForm, RegistrationForm, RegisterUpdateForm, UpdatePasswordForm, \
     RequesterDisplayForm
 
-from django.views.generic.edit import CreateView, UpdateView
-from .models import Recipient, Requester, User
-
+from django.views.generic.edit import CreateView, UpdateView, FormView
+from .models import Recipient, Requester, User, Contact
 
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import UserChangeForm
@@ -176,12 +175,14 @@ class GeneratePdf(View):
     def get(self, request, *args, **kwargs):
         user = request.user
 
+        contact = Contact.objects.get(id=user.division_id)
         userdisplay = User.objects.get(id = user.id)
         recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
         data = {
             # 'user' : request.user.name,
             'user': userdisplay,
-            'recipient': recipientdisplay
+            'recipient': recipientdisplay,
+            'contact':contact
         }
         pdf = render_to_pdf('COIDoc.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
@@ -305,38 +306,44 @@ def edit_password(request):
 
 
 #@staff_member_required
-def recipientView(request, self):
-    if request.method == "POST":
+def recipientView(request):
 
-        context = {}
-        form = RecipientForm(request.POST)
-        form.instance.user = request.user
-        context['form'] = form
+        if request.method == "POST":
 
-
-        if form.is_valid():
-
-            form.save()
-
-            user = request.user
-
-            userdisplay = User.objects.get(id=user.id)
-            recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
-            data = {
-                'user': userdisplay,
-                'recipient': recipientdisplay
-            }
-            pdf = render_to_pdf('COIDoc.html', data)
-            filename = "YourPDF_Order{}.pdf" % recipientdisplay.name
-            recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
+            context = {}
+            form = RecipientForm(request.POST)
+            form.instance.user = request.user
+            context['form'] = form
 
 
+            if form.is_valid():
+
+                new_recipient = form.save()
+
+                return HttpResponseRedirect(reverse('dropPDF', args=( new_recipient.pk, ) ))
+        else:
+            form = RecipientForm()
+        return render(request, 'recipient.html', {'form': form}, )
 
 
-            return redirect('accounts:home')
-    else:
-        form = RecipientForm()
-    return render(request, 'recipient.html', {'form': form}, )
+class dropPDF(View):
+    def get(self,request,*args,**kwargs):
+
+        user = request.user
+
+        contact = Contact.objects.get( id = user.division_id)
+        userdisplay = User.objects.get(id=user.id)
+        recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
+        data = {
+            'user': userdisplay,
+            'recipient': recipientdisplay,
+            'contact' :contact
+        }
+        pdf = render_to_pdf('COIDoc.html', data)
+        filename = recipientdisplay.name + ".pdf"
+        recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
+
+        return redirect('accounts:home')
 
 
 def RequesterUpdate(request):

@@ -8,8 +8,9 @@ from .views import SignUpView
 
 urlpatterns = [
     path('', views.indexView, name='home'),
+
     path('dashboard/', views.dashboardView, name="dashboard"),
-    path('register/', SignUpView.as_view(), name='register_url'),
+    path('register/', staff_member_required(SignUpView.as_view()), name='register_url'),
     path('login/', views.loginview, name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
     path('register/requester/', views.requesterView, name='requester_url'),
@@ -23,6 +24,7 @@ urlpatterns = [
     path('<int:pk>/editrequester/', views.editRequesterView, name='editrequester'),
     path('<int:pk>/editrecipient/', views.editRecipientView, name='editrecipient'),
     path('<int:pk>/certholder/', views.CertHolderView.as_view(), name='certholder'),
+    path('<int:pk>/droppdf/', views.dropPDF.as_view(), name='dropPDF'),
     path('<int:pk>/viewdoc/', views.GeneratePdf.as_view(), name='viewdoc')
     # path(
     #     'login/',

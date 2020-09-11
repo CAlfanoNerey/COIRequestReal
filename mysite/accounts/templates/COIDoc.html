@@ -29,28 +29,28 @@
 </td></tr><tr style="height:40pt">
 
 	<tr style="height:21pt; width:970;">
-	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Your Business Name</p></td>
-	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Your Name: {{user.name}}</p></td>
-	<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Request Date: {{requester.date_joined}}</p></td></tr>
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Your Business Name: {{ contact.yourbusinessname }}</p></td>
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Your Name: {{contact.yourname}}</p></td>
+	<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Request Date: </p></td></tr>
 
 
 	<tr style="height:21pt; width: 970;">
-		<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"  colspan="2"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Company Address: {{requester.address_line1}}</p></td>
+		<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"  colspan="2"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Company Address: {{contact.address}}</p></td>
 
-		<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Address Line 2: {{requester.address_line2}}</p></td>
+		<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Address Line 2: {{contact.address2}}</p></td>
 
 	</tr>
 
 	<tr style="height:21pt; width:970;">
-	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">City: {{requester.city}}</p></td>
-	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">State: {{requester.state_or_territory}}</p></td>
-	<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Zip Code: {{requester.zipcode}}</p></td></tr>
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">City: {{contact.city}}</p></td>
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">State: {{contact.state}}</p></td>
+	<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Zip Code: {{contact.zipcode}}</p></td></tr>
 
 
 	<tr style="height:21pt; width: 970;">
-		<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"  ><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Phone Number:</p></td>
+		<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"  ><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Phone Number: {{ contact.phonenumber }}</p></td>
 
-		<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"colspan="2"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Email Address: {{requester.email}}</p></td>
+		<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"colspan="2"><p class="s2" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Email Address: {{contact.email}}</p></td>
 
 	</tr>
 
@@ -166,8 +166,8 @@
 	<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="descriptiontop" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Estimated Payroll for Project:</p></td></tr>
 
 	<tr style="height:21pt; width:970;">
-	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="descriptionbottom" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">{{ recipient.projectsdate}}</p></td>
-	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="descriptionbottom" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">{{recipient.projectedate}}</p></td>
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="descriptionbottom" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">{{ recipient.projectsdate}}, {{recipient.projectedate}}</p></td>
+	<td width="323" style="width:323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="descriptionbottom" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;"></p>{{ recipient.employeenum }}</td>
 	<td width="323" style="width323;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:2pt;border-bottom-style:solid;border-bottom-width:1pt"><p class="descriptionbottom" style="padding-top: 7pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">{{recipient.cost}}</p></td></tr>
 
 

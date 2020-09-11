@@ -65,7 +65,7 @@ class Contact(models.Model):
 class User(AbstractUser):
 
     name = models.CharField(max_length=200, default='')
-    division= models.ForeignKey(Contact, on_delete=models.CASCADE, default='', null=True)
+    division = models.ForeignKey(Contact, on_delete=models.CASCADE, default='', null=True)
 
 
     address_line1 = models.CharField(max_length=200,default='')
