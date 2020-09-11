@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'accounts',
-    'polls',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -83,15 +82,16 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mysqlcoi',
+        'NAME': 'accounts',
+        'HOST': 'localhost',
+        'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': 'rocktofakie',
-        'PORT': 3306,
-        'HOST': 'localhost'
+        'PASSWORD': 'zaverih99',
     }
+
 }
 
-# Password validation
+        # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -134,3 +134,14 @@ ALLOWED_HOSTS = ['*']
 LOGIN_REDIRECT_URL = '/accounts/'
 LOGOUT_REDIRECT_URL = ''
 AUTH_USER_MODEL = 'accounts.User'
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST ='smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'jhaverihussain@gmail.com'
+EMAIL_HOST_PASSWORD = 'zaverih99'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'pdf')

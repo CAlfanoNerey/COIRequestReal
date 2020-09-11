@@ -3,6 +3,8 @@ from io import BytesIO
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login
+from django.core.mail import EmailMessage
+from django.core.files import File
 
 from django.db.backends.utils import logger
 from django.http import HttpResponse
@@ -113,6 +115,7 @@ class CertHolderView(View):
 @staff_member_required()
 def editRecipientView(request, pk=None):
     if pk:
+
         getrecipient = Recipient.objects.get(user_id=pk)
         #key = Recipient.objects.get(Requester_id=pk)
         form = RecipientForm(instance=getrecipient)
@@ -302,13 +305,7 @@ def edit_password(request):
 
 
 #@staff_member_required
-def recipientView(request):
-    # context= {}
-    # form = RequesterForm(request.POST)
-    # context['form'] = form
-
-    #args = {'user': request.user}
-
+def recipientView(request, self):
     if request.method == "POST":
 
         context = {}
@@ -320,6 +317,22 @@ def recipientView(request):
         if form.is_valid():
 
             form.save()
+
+            user = request.user
+
+            userdisplay = User.objects.get(id=user.id)
+            recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
+            data = {
+                'user': userdisplay,
+                'recipient': recipientdisplay
+            }
+            pdf = render_to_pdf('COIDoc.html', data)
+            filename = "YourPDF_Order{}.pdf" % recipientdisplay.name
+            recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
+
+
+
+
             return redirect('accounts:home')
     else:
         form = RecipientForm()
