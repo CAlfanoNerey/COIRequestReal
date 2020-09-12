@@ -4,6 +4,8 @@ import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from django.core.mail import send_mail, EmailMessage
+import glob
+import os
 
 
 
@@ -39,13 +41,20 @@ class Handler(FileSystemEventHandler):
             # Take any action here when a file is first created.
             print("Received created event - %s." % event.src_path)
 
+
+
+            list_of_files = glob.glob('/Users/husj/PycharmProjects/Finalrepo/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
+            latest_file = max(list_of_files, key=os.path.getctime)
+            print(latest_file)
+
+
             email = EmailMessage(
                 subject='email with attachment',
                 body='your attachment',
                 from_email='jhaverihussain@gmail.com',
                 to=['jhaverihussain@gmail.com'],
             )
-            email.attach_file('/COIRequestReal/mysite/pdf/pdf/Arva_gaveri.pdf')
+            email.attach_file(latest_file)
             email.send()
 
             print("Received created event - %s." % event.src_path)
