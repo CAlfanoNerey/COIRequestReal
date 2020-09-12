@@ -342,6 +342,7 @@ class dropPDF(View):
         pdf = render_to_pdf('COIDoc.html', data)
         filename = recipientdisplay.name + ".pdf"
         recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
+        recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
 
         return redirect('accounts:home')
 
