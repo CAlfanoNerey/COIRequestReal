@@ -5,7 +5,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login
 from django.core.mail import EmailMessage
 from django.core.files import File
-
+from datetime import datetime
+import time
 from django.db.backends.utils import logger
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404, resolve_url
@@ -340,7 +341,10 @@ class dropPDF(View):
             'contact' :contact
         }
         pdf = render_to_pdf('COIDoc.html', data)
-        filename = recipientdisplay.name + ".pdf"
+        today= datetime.now()
+        todays = today.strftime("%d-%b-%Y (%I:%M:%S)")
+
+        filename = userdisplay.name+'_'+recipientdisplay.name + '_' + todays + ".pdf"
         recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
         recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
 
