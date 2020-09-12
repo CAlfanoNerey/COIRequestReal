@@ -45,7 +45,7 @@ class Handler(FileSystemEventHandler):
                 from_email='jhaverihussain@gmail.com',
                 to=['jhaverihussain@gmail.com'],
             )
-            email.attach_file('/Users/husj/PycharmProjects/Finalrepo/COIRequestReal/mysite/pdf/pdf/Arva_gaveri.pdf')
+            email.attach_file('/COIRequestReal/mysite/pdf/pdf/Arva_gaveri.pdf')
             email.send()
 
             print("Received created event - %s." % event.src_path)
