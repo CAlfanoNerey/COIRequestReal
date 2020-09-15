@@ -1,11 +1,14 @@
 import datetime
+import glob
+import os
 from io import BytesIO
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login
 from django.core.mail import EmailMessage
 from django.core.files import File
-
+from datetime import datetime
+import time
 from django.db.backends.utils import logger
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404, resolve_url
@@ -28,7 +31,7 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth import views as auth_views
 
 # Create your views here.
-from .utils import render_to_pdf
+from .utils1 import render_to_pdf
 
 
 def indexView(request):
@@ -115,7 +118,7 @@ class CertHolderView(View):
 def editRecipientView(request, pk=None):
     if pk:
 
-        getrecipient = Recipient.objects.get(user_id=pk)
+        getrecipient = Recipient.objects.get(id=pk)
         #key = Recipient.objects.get(Requester_id=pk)
         form = RecipientForm(instance=getrecipient)
         if request.method == 'POST':
@@ -340,10 +343,30 @@ class dropPDF(View):
             'contact' :contact
         }
         pdf = render_to_pdf('COIDoc.html', data)
-        filename = recipientdisplay.name + ".pdf"
-        recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
+        today= datetime.now()
+        todays = today.strftime("%d-%b-%Y (%I:%M:%S)")
 
-        return redirect('accounts:home')
+        filename = userdisplay.name+'_'+recipientdisplay.name + '_' + todays + ".pdf"
+        recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
+        recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
+
+        return redirect('accounts:demail')
+
+def email(request):
+    list_of_files = glob.glob(
+        '/Users/husj/PycharmProjects/Finalrepo/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
+    latest_file = max(list_of_files, key=os.path.getctime)
+    # print(latest_file)
+
+    demail = EmailMessage(
+        subject='email with attachment',
+        body='your attachment',
+        from_email='jhaverihussain@gmail.com',
+        to=['jhaverihussain@gmail.com'],
+    )
+    demail.attach_file(latest_file)
+    demail.send()
+    return redirect('accounts:home')
 
 
 def RequesterUpdate(request):

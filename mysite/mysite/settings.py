@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 
@@ -32,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'accounts',
+    'django_dropbox_storage',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -138,10 +140,17 @@ AUTH_USER_MODEL = 'accounts.User'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST ='smtp.gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'jhaverihussain@gmail.com'
 EMAIL_HOST_PASSWORD = 'zaverih99'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'pdf')
+
+DROPBOX_ACCESS_TOKEN = 'Y12EdMvx0zQAAAAAAAAAAfZ8A_jqtSER9xBf60SvB78wAm0fmrgVAtembCb9nUKk'
+DROPBOX_CONSUMER_KEY = 't5sfm4fold17za9'
+DROPBOX_CONSUMER_SECRET='sl5yh2ve525wt4j'
+
+
+

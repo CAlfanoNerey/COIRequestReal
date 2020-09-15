@@ -114,7 +114,7 @@ class RequesterForm(forms.ModelForm):
 class RecipientForm(forms.ModelForm):
     class Meta:
         model = Recipient
-        exclude = ['user','pdf']
+        exclude = ['user','pdf','dpdf']
         labels = {
             'projectname': 'Project Name',
             'wcity': 'City',
