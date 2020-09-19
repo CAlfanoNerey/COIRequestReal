@@ -53,13 +53,12 @@ class getRequesterView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
 
-        requesterdisplay = Requester.objects.all()
+        requesterdisplay = User.objects.all()
 
         return render(request, 'rChoose.html', {
             'requesterdisplay': requesterdisplay,
         })
-        template_name = 'rChoose.html'
-        return render(request, template_name, data)
+
 
 
 @staff_member_required()
@@ -98,6 +97,28 @@ class CertHolderView(View):
         user = request.user
         userdisplay = User.objects.all()
         recipientdisplay = Recipient.objects.all().filter(user_id = user)
+
+        # data = {
+        #     # 'user' : request.user.name,
+        #     'user': userdisplay,
+        #     'recipient': recipientdisplay
+        # }
+
+
+        return render(request, 'certholder.html', {
+            'user': userdisplay,
+            'recipient': recipientdisplay,
+            'error_message': "You didn't select a choice.",
+        })
+        template_name = 'certholder.html'
+        return render(request, template_name,data)
+
+
+class AdminCertHolderView(View):
+    def get(self, request, *args, **kwargs):
+        user= request.user
+        userdisplay = User.objects.all()
+        recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
 
         # data = {
         #     # 'user' : request.user.name,

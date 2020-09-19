@@ -123,6 +123,7 @@ class RequesterForm(forms.ModelForm):
 
 
 class RecipientForm(forms.ModelForm):
+    datefield= forms.DateField(widget=forms.DateInput)
     class Meta:
         model = Recipient
         exclude = ['user','pdf','dpdf']

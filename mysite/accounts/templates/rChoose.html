@@ -50,7 +50,7 @@
         {% for requesterdisplay in requesterdisplay %}
         <div class="row">
         <div class="column left">
-            <a href="{% url 'accounts:certholder' pk=requesterdisplay.pk %}" class="list-group-item list-group-item-action">{{ requesterdisplay.name }}</a>
+            <a href="{% url 'accounts:admincertholder' pk=requesterdisplay.pk %}" class="list-group-item list-group-item-action">{{ requesterdisplay.name }}</a>
         </div>
         <div class="column right">
             <a href="{% url 'accounts:editrequester' pk=requesterdisplay.pk %}" class="list-group-item list-group-item-action">Edit</a>

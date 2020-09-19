@@ -28,6 +28,7 @@ urlpatterns = [
     path('email/', views.email, name='demail'),
     path('<int:pk>/viewdoc/', views.GeneratePdf.as_view(), name='viewdoc'),
     path('<int:pk>/emailview/', views.EmailView.as_view(), name='emailview'),
+    path('<int:pk>/admincertholder/', views.AdminCertHolderView.as_view(), name='admincertholder'),
     # path('passwordsubmit/',views.PasswordSubmit.as_view(), name= 'passwordsubmit')
     # path(
     #     'login/',
