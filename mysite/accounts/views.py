@@ -388,21 +388,20 @@ class dropPDF(View):
 
         filename = userdisplay.name+'_'+recipientdisplay.name + '_' + todays + ".pdf"
         recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
-        recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
+        #recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
 
         return redirect('accounts:demail')
 
 def email(request):
-    list_of_files = glob.glob(
-        '/Users/husj/PycharmProjects/Finalrepo/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
+    list_of_files = glob.glob('C:/Users/calfa/PycharmProjects/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
     latest_file = max(list_of_files, key=os.path.getctime)
     # print(latest_file)
 
     demail = EmailMessage(
         subject='email with attachment',
         body='your attachment',
-        from_email='jhaverihussain@gmail.com',
-        to=['jhaverihussain@gmail.com'],
+        from_email='CAlfano1999@gmail.com',
+        to=['CAlfano1999@gmail.com'],
     )
     demail.attach_file(latest_file)
     demail.send()
