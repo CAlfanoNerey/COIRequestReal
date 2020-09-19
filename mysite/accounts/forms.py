@@ -66,6 +66,17 @@ class RegistrationForm(UserCreationForm):
                    'password']
         fields = ('__all__')
 
+    class PasswordForm(forms.ModelForm):
+        class Meta:
+            model = User
+            exclude = ['last_login', 'is_superuser', 'is_staff', 'is_active', 'user_permissions', 'date_joined',
+                       'groups',  'password', 'username', 'divison', 'address_line1', 'address_line2', 'city',
+                       'state_or_territory'
+                       'zipcode', 'fax',
+
+
+            ]
+
         # 'name',
         # 'first_name',
         # 'last_name',

@@ -10,7 +10,7 @@ urlpatterns = [
     path('', views.indexView, name='home'),
 
     path('dashboard/', views.dashboardView, name="dashboard"),
-    path('register/', staff_member_required(SignUpView.as_view()), name='register_url'),
+    path('register/', views.SignUpView, name='register_url'),
     path('login/', views.loginview, name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
     path('register/requester/', views.requesterView, name='requester_url'),
@@ -26,7 +26,9 @@ urlpatterns = [
     path('<int:pk>/certholder/', views.CertHolderView.as_view(), name='certholder'),
     path('<int:pk>/droppdf/', views.dropPDF.as_view(), name='dropPDF'),
     path('email/', views.email, name='demail'),
-    path('<int:pk>/viewdoc/', views.GeneratePdf.as_view(), name='viewdoc')
+    path('<int:pk>/viewdoc/', views.GeneratePdf.as_view(), name='viewdoc'),
+    path('<int:pk>/emailview/', views.EmailView.as_view(), name='emailview'),
+    # path('passwordsubmit/',views.PasswordSubmit.as_view(), name= 'passwordsubmit')
     # path(
     #     'login/',
     #     LoginView.as_view(

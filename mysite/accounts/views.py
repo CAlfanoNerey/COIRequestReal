@@ -223,10 +223,50 @@ def dashboardView(request):
 def logoutview(request):
     return render(request, 'registration/logged_out.html')
 
-class SignUpView(CreateView):
-    form_class = RegistrationForm
-    success_url = reverse_lazy('accounts:login')
-    template_name = 'registration/register.html'
+# class SignUpView(CreateView):
+#     form_class = RegistrationForm
+#     success_url = reverse_lazy('accounts:login')
+#     template_name = 'registration/register.html'
+
+def SignUpView(request):
+    if request.method == 'POST':
+        context={}
+        form =  RegistrationForm(request.POST)
+        context['form'] = form
+        if form.is_valid():
+            newuser= form.save()
+
+            return HttpResponseRedirect(reverse('emailview', args=(newuser.pk,)))
+
+
+    else:
+        form = RegistrationForm()
+        return render(request, 'registration/register.html', {'form': form})
+
+
+
+# class PasswordSubmit(FormView):
+#     template_name = 'ppassword.hmtl'
+#     form_class = 'PasswordForm'
+#     success_url= 'accounts/emailview'
+
+class EmailView(View):
+    def get(self, request, *args, **kwargs):
+
+
+        userpass= User.objects.get(id=self.kwargs['pk'])
+
+
+        demail=EmailMessage(
+            subject= 'login credentials',
+            body = 'your username is'+' ' + str(userpass.username) + '\nyour password is '+str(userpass.ppassword),
+            from_email= 'jhaverihussain@gmail.com',
+            to=[userpass.email],
+        )
+
+        demail.send()
+        return redirect('accounts:home')
+
 
 
 # def registerView(request):
