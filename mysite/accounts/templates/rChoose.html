@@ -39,8 +39,12 @@
           width: 25%;
         }
 
+        .right2{
+            width: 25%;
+        }
+
         .left {
-          width: 75%;
+          width: 50%;
         }
     </style>
     <br>
@@ -54,6 +58,10 @@
         </div>
         <div class="column right">
             <a href="{% url 'accounts:editrequester' pk=requesterdisplay.pk %}" class="list-group-item list-group-item-action">Edit</a>
+        </div>
+
+        <div class="column right2">
+            <a href="{% url 'accounts:adminzrecipient' pk=requesterdisplay.pk %}" class="list-group-item list-group-item-action">New PDF</a>
         </div>
             </div>
         {% endfor %}

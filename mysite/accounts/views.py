@@ -37,6 +37,7 @@ from .utils1 import render_to_pdf
 def indexView(request):
     return render(request, 'index.html')
 
+
 class viewdoc(generic.DetailView):
     model = Recipient
 
@@ -52,7 +53,6 @@ class viewdoc(generic.DetailView):
 class getRequesterView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
-
         requesterdisplay = User.objects.all()
 
         return render(request, 'rChoose.html', {
@@ -60,9 +60,8 @@ class getRequesterView(generic.DetailView):
         })
 
 
-
 @staff_member_required()
-def editRequesterView(request, pk = None):
+def editRequesterView(request, pk=None):
     if pk:
         requesterrec = Requester.objects.get(id=pk)
         form = RequesterForm(instance=requesterrec)
@@ -74,8 +73,6 @@ def editRequesterView(request, pk = None):
     args = {'requester': requesterrec, 'form': form}
 
     return render(request, 'editrequester.html', args)
-
-
 
     # if request.method == "POST":
     #     context = {}
@@ -94,9 +91,8 @@ def editRequesterView(request, pk = None):
 # @staff_member_required
 class CertHolderView(View):
     def get(self, request, *args, **kwargs):
-        user = request.user
         userdisplay = User.objects.all()
-        recipientdisplay = Recipient.objects.all().filter(user_id = user)
+        recipientdisplay = Recipient.objects.all().filter(user_id=self.kwargs['pk'])
 
         # data = {
         #     # 'user' : request.user.name,
@@ -104,24 +100,20 @@ class CertHolderView(View):
         #     'recipient': recipientdisplay
         # }
 
-
         return render(request, 'certholder.html', {
             'user': userdisplay,
             'recipient': recipientdisplay,
             'error_message': "You didn't select a choice.",
         })
         template_name = 'certholder.html'
-        return render(request, template_name,data)
+        return render(request, template_name, data)
 
 
 class AdminCertHolderView(View):
     def get(self, request, *args, **kwargs):
-        user= request.user
+        user = request.user
         userdisplay = User.objects.all()
         recipientdisplay = Recipient.objects.all().filter(user_id=self.kwargs['pk'])
-
-
-
 
         return render(request, 'admincertholder.html', {
             'user': userdisplay,
@@ -130,18 +122,17 @@ class AdminCertHolderView(View):
         })
 
 
-
 @staff_member_required()
 def editRecipientView(request, pk=None):
     if pk:
 
         getrecipient = Recipient.objects.get(id=pk)
-        #key = Recipient.objects.get(Requester_id=pk)
+        # key = Recipient.objects.get(Requester_id=pk)
         form = RecipientForm(instance=getrecipient)
         if request.method == 'POST':
             form = RecipientForm(request.POST, instance=getrecipient)
             form.save()
-            return redirect("accounts:certholder", pk = pk )
+            return redirect("accounts:certholder", pk=pk)
 
     args = {'recipient': getrecipient, 'form': form}
 
@@ -196,17 +187,16 @@ class GeneratePdf(View):
         user = request.user
 
         contact = Contact.objects.get(id=user.division_id)
-        userdisplay = User.objects.get(id = user.id)
+        userdisplay = User.objects.get(id=user.id)
         recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
         data = {
             # 'user' : request.user.name,
             'user': userdisplay,
             'recipient': recipientdisplay,
-            'contact':contact
+            'contact': contact
         }
         pdf = render_to_pdf('COIDoc.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
-
 
 
 # class GeneratePDF(View):
@@ -240,6 +230,7 @@ def dashboardView(request):
 def logoutview(request):
     return render(request, 'registration/logged_out.html')
 
+
 # class SignUpView(CreateView):
 #     form_class = RegistrationForm
 #     success_url = reverse_lazy('accounts:login')
@@ -247,11 +238,11 @@ def logoutview(request):
 
 def SignUpView(request):
     if request.method == 'POST':
-        context={}
-        form =  RegistrationForm(request.POST)
+        context = {}
+        form = RegistrationForm(request.POST)
         context['form'] = form
         if form.is_valid():
-            newuser= form.save()
+            newuser = form.save()
 
             return HttpResponseRedirect(reverse('emailview', args=(newuser.pk,)))
 
@@ -261,7 +252,6 @@ def SignUpView(request):
         return render(request, 'registration/register.html', {'form': form})
 
 
-
 # class PasswordSubmit(FormView):
 #     template_name = 'ppassword.hmtl'
 #     form_class = 'PasswordForm'
@@ -269,21 +259,17 @@ def SignUpView(request):
 
 class EmailView(View):
     def get(self, request, *args, **kwargs):
+        userpass = User.objects.get(id=self.kwargs['pk'])
 
-
-        userpass= User.objects.get(id=self.kwargs['pk'])
-
-
-        demail=EmailMessage(
-            subject= 'login credentials',
-            body = 'your username is'+' ' + str(userpass.username) + '\nyour password is '+str(userpass.ppassword),
-            from_email= 'jhaverihussain@gmail.com',
+        demail = EmailMessage(
+            subject='login credentials',
+            body='your username is' + ' ' + str(userpass.username) + '\nyour password is ' + str(userpass.ppassword),
+            from_email='jhaverihussain@gmail.com',
             to=[userpass.email],
         )
 
         demail.send()
         return redirect('accounts:home')
-
 
 
 # def registerView(request):
@@ -342,92 +328,84 @@ def edit_profile(request):
 
     else:
         form = RegisterUpdateForm(instance=request.user)
-        args= {'form': form}
+        args = {'form': form}
         return render(request, 'edit_profile.html', args)
 
 
 @login_required()
 def edit_password(request):
     if request.method == 'POST':
-        form= UpdatePasswordForm(request.POST, instance= request.user)
+        form = UpdatePasswordForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect('accounts:view_profile', pk=request.user.pk)
     else:
-        form= UpdatePasswordForm()
-        args={'form': form}
+        form = UpdatePasswordForm()
+        args = {'form': form}
         return render(request, 'password.html', args)
 
 
-
-
-
-
-
-
-#@staff_member_required
+# @staff_member_required
 def recipientView(request):
+    if request.method == "POST":
 
-        if request.method == "POST":
+        context = {}
+        form = RecipientForm(request.POST)
+        form.instance.user = request.user
+        context['form'] = form
 
-            context = {}
-            form = RecipientForm(request.POST)
-            form.instance.user = request.user
-            context['form'] = form
+        if form.is_valid():
+            new_recipient = form.save()
+
+            return HttpResponseRedirect(reverse('dropPDF', args=(new_recipient.pk,)))
+    else:
+        form = RecipientForm()
+    return render(request, 'recipient.html', {'form': form}, )
 
 
-            if form.is_valid():
+def AdminzRecipientView(request, pk=None):
+    if request.method == "POST":
 
-                new_recipient = form.save()
+        context = {}
+        form = RecipientForm(request.POST)
+        form.instance.user = User.objects.get(id=pk)
+        context['form'] = form
 
-                return HttpResponseRedirect(reverse('dropPDF', args=( new_recipient.pk, ) ))
-        else:
-            form = RecipientForm()
-        return render(request, 'recipient.html', {'form': form}, )
+        if form.is_valid():
+            new_recipient = form.save()
 
-class AdminzRecipientView(View):
-    def get(self,request,*args,**kwargs):
-        if request.method == "POST":
-
-            context = {}
-            form = RecipientForm(request.POST)
-            form.instance.user = User.objects.all().filter(id=self.kwargs['pk'])
-            context['form'] = form
-
-            if form.is_valid():
-                new_recipient = form.save()
-
-                return HttpResponseRedirect(reverse('dropPDF', args=(new_recipient.pk,)))
-        else:
-            form = RecipientForm()
-        return render(request, 'recipient.html', {'form': form}, )
+            return HttpResponseRedirect(reverse('dropPDF', args=(new_recipient.pk,)))
+    else:
+        form = RecipientForm()
+    return render(request, 'recipient.html', {'form': form}, )
 
 
 class dropPDF(View):
-    def get(self,request,*args,**kwargs):
-
+    def get(self, request, *args, **kwargs):
         user = request.user
 
-        contact = Contact.objects.get( id = user.division_id)
+        contact = Contact.objects.get(id=user.division_id)
         userdisplay = User.objects.get(id=user.id)
         recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
         data = {
             'user': userdisplay,
             'recipient': recipientdisplay,
-            'contact' :contact
+            'contact': contact
         }
         pdf = render_to_pdf('COIDoc.html', data)
-        today= datetime.now()
+        today = datetime.now()
         todays = today.strftime("%d-%b-%Y (%I:%M:%S)")
 
-        filename = userdisplay.name+'_'+recipientdisplay.name + '_' + todays + ".pdf"
+        filename = userdisplay.name + '_' + recipientdisplay.name + '_' + todays + ".pdf"
         recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
-        #recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
+        # recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
 
         return redirect('accounts:demail')
 
+
 def email(request):
-    list_of_files = glob.glob('C:/Users/calfa/PycharmProjects/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
+    list_of_files = glob.glob(
+        'C:/Users/calfa/PycharmProjects/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
     latest_file = max(list_of_files, key=os.path.getctime)
     # print(latest_file)
 
@@ -448,13 +426,10 @@ def RequesterUpdate(request):
     template_name = "edit_requester.html"
     success_url = 'profile'
 
-   # def getobject(self, *args, **kwargs):
-   #      user_ = self.request.user
-   #      return get_object_or_404(User, user=user_)
 
-
-
-
+# def getobject(self, *args, **kwargs):
+#      user_ = self.request.user
+#      return get_object_or_404(User, user=user_)
 
 
 def loginview(request):
@@ -475,18 +450,6 @@ def loginview(request):
 
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form}, )
-
-
-
-
-
-
-
-
-
-
-
-
 
 # def login_view(request):
 #     if request.method == 'POST':
