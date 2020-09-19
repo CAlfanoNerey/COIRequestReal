@@ -118,7 +118,7 @@ class AdminCertHolderView(View):
     def get(self, request, *args, **kwargs):
         user= request.user
         userdisplay = User.objects.all()
-        recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
+        recipientdisplay = Recipient.objects.all().filter(user_id=self.kwargs['pk'])
 
         # data = {
         #     # 'user' : request.user.name,
@@ -385,6 +385,23 @@ def recipientView(request):
                 new_recipient = form.save()
 
                 return HttpResponseRedirect(reverse('dropPDF', args=( new_recipient.pk, ) ))
+        else:
+            form = RecipientForm()
+        return render(request, 'recipient.html', {'form': form}, )
+
+class AdminzRecipientView(View):
+    def get(self,request,*args,**kwargs):
+        if request.method == "POST":
+
+            context = {}
+            form = RecipientForm(request.POST)
+            form.instance.user = User.objects.all().filter(id=self.kwargs['pk'])
+            context['form'] = form
+
+            if form.is_valid():
+                new_recipient = form.save()
+
+                return HttpResponseRedirect(reverse('dropPDF', args=(new_recipient.pk,)))
         else:
             form = RecipientForm()
         return render(request, 'recipient.html', {'form': form}, )
