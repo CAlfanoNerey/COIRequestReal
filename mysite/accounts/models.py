@@ -79,6 +79,7 @@ class User(AbstractUser):
     # zipcode = models.PositiveIntegerField(blank=True, null=True)
     zipcode = models.PositiveIntegerField(validators=[MaxValueValidator(99999)], blank=True, null=True)
     fax = models.IntegerField(blank=True, null=True)
+    ppassword= models.CharField(max_length=200, default= '')
 
     def __str__(self):
         return self.username
