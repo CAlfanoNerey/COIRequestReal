@@ -1,0 +1,41 @@
+<title>Profile</title>
+{% extends 'index.html' %}
+{%block home%}
+
+{% endblock %}
+
+
+    {% block content %}
+<div class="container">
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Certificate holder</h2>
+<style>
+        .column {
+          float: left;
+          padding: 5px;
+        }
+
+        .right {
+          width: 25%;
+        }
+
+        .left {
+          width: 75%;
+        }
+    </style>
+
+    <br>
+    <br>
+
+        {% for recipient in recipient %}
+        <div class="row">
+        <div class="column left">
+            <a href="/accounts/{{ recipient.id }}/viewdoc" class="list-group-item list-group-item-action">{{ recipient.name }}</a>
+        </div>
+        <div class="column right">
+            <a href="{% url 'accounts:editrecipient' pk=recipient.pk %}" class="list-group-item list-group-item-action">Edit</a>
+        </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

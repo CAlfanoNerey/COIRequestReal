@@ -120,20 +120,16 @@ class AdminCertHolderView(View):
         userdisplay = User.objects.all()
         recipientdisplay = Recipient.objects.all().filter(user_id=self.kwargs['pk'])
 
-        # data = {
-        #     # 'user' : request.user.name,
-        #     'user': userdisplay,
-        #     'recipient': recipientdisplay
-        # }
 
 
-        return render(request, 'certholder.html', {
+
+        return render(request, 'admincertholder.html', {
             'user': userdisplay,
             'recipient': recipientdisplay,
             'error_message': "You didn't select a choice.",
         })
-        template_name = 'certholder.html'
-        return render(request, template_name,data)
+
+
 
 @staff_member_required()
 def editRecipientView(request, pk=None):
