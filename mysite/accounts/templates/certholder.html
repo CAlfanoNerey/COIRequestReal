@@ -29,7 +29,7 @@
         {% for recipient in recipient %}
         <div class="row">
         <div class="column left">
-            <a href="/accounts/{{ recipient.id }}/viewdoc" class="list-group-item list-group-item-action">{{ recipient.name }}</a>
+            <a href="/accounts/{{ recipient.id }}/viewdoc" class="list-group-item list-group-item-action">{{ recipient.name }}  {{ recipient.datefield }}</a>
         </div>
         <div class="column right">
             <a href="{% url 'accounts:editrecipient' pk=recipient.pk %}" class="list-group-item list-group-item-action">Edit</a>

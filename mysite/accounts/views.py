@@ -379,7 +379,6 @@ def AdminzRecipientView(request, pk=None):
         form = RecipientForm()
     return render(request, 'recipient.html', {'form': form}, )
 
-
 class dropPDF(View):
     def get(self, request, *args, **kwargs):
         user = request.user
@@ -405,7 +404,7 @@ class dropPDF(View):
 
 def email(request):
     list_of_files = glob.glob(
-        'C:/Users/calfa/PycharmProjects/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
+        '/Users/husj/PycharmProjects/Finalrepo/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
     latest_file = max(list_of_files, key=os.path.getctime)
     # print(latest_file)
 
