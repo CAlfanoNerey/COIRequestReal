@@ -63,10 +63,10 @@ class getRequesterView(generic.DetailView):
 @staff_member_required()
 def editRequesterView(request, pk=None):
     if pk:
-        requesterrec = Requester.objects.get(id=pk)
-        form = RequesterForm(instance=requesterrec)
+        requesterrec = User.objects.get(id=pk)
+        form = RegisterUpdateForm(instance=requesterrec)
         if request.method == 'POST':
-            form = RequesterForm(request.POST, instance=requesterrec)
+            form = RegisterUpdateForm(request.POST, instance=requesterrec)
             form.save()
             return redirect('accounts:rChoose')
 
@@ -122,17 +122,18 @@ class AdminCertHolderView(View):
         })
 
 
-@staff_member_required()
+# @staff_member_required()
 def editRecipientView(request, pk=None):
     if pk:
 
         getrecipient = Recipient.objects.get(id=pk)
+        getuserpk= getrecipient.user_id
         # key = Recipient.objects.get(Requester_id=pk)
         form = RecipientForm(instance=getrecipient)
         if request.method == 'POST':
             form = RecipientForm(request.POST, instance=getrecipient)
             form.save()
-            return redirect("accounts:certholder", pk=pk)
+            return redirect("accounts:admindroppdf", pk=getuserpk)
 
     args = {'recipient': getrecipient, 'form': form}
 
@@ -197,6 +198,20 @@ class GeneratePdf(View):
         }
         pdf = render_to_pdf('COIDoc.html', data)
         return HttpResponse(pdf, content_type='application/pdf')
+
+
+def adminGeneratePdf(request, pk=None):
+    recipientdisplay = Recipient.objects.get(id=pk)
+    userdisplay = User.objects.get(id=recipientdisplay.user_id)
+    contact = Contact.objects.get(id=userdisplay.division_id)
+    data = {
+        # 'user' : request.user.name,
+        'user': userdisplay,
+        'recipient': recipientdisplay,
+        'contact': contact
+    }
+    pdf = render_to_pdf('COIDoc.html', data)
+    return HttpResponse(pdf, content_type='application/pdf')
 
 
 # class GeneratePDF(View):
@@ -333,12 +348,14 @@ def edit_profile(request):
 
 
 @login_required()
-def edit_password(request):
+def edit_password(request, pk=None):
+    uzer= User.objects.get(id=pk)
+
     if request.method == 'POST':
-        form = UpdatePasswordForm(request.POST, instance=request.user)
+        form = UpdatePasswordForm(request.POST, instance=uzer)
         if form.is_valid():
             form.save()
-            return redirect('accounts:view_profile', pk=request.user.pk)
+            return redirect('accounts:rChoose')
     else:
         form = UpdatePasswordForm()
         args = {'form': form}

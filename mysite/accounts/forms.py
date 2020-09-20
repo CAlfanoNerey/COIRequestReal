@@ -94,19 +94,23 @@ class UpdatePasswordForm(UserCreationForm):
     class Meta:
         model = User
         exclude = [
-            # 'name',
+            'name',
             'first_name',
             'last_name',
             'email',
-            # 'address_line1',
-            # 'address_line2',
-            # 'city',
-            # 'state_or_territory',
-            # 'zipcode',
-            # 'fax',
+            'address_line1',
+            'address_line2',
+            'city',
+            'state_or_territory',
+            'zipcode',
+            'fax',
             'last_login', 'is_superuser', 'is_staff', 'is_active', 'user_permissions', 'date_joined', 'groups',
             'password',
-            'username'
+            'username',
+            'division',
+
+
+
         ]
 
 
@@ -120,10 +124,11 @@ class RequesterForm(forms.ModelForm):
     class Meta:
         model = Requester
         fields = ('__all__')
-
+class DatePicker(forms.DateInput):
+    input_type = 'date'
 
 class RecipientForm(forms.ModelForm):
-    datefield= forms.DateField(widget=forms.DateInput)
+
     class Meta:
         model = Recipient
         exclude = ['user','pdf','dpdf']
@@ -138,10 +143,17 @@ class RecipientForm(forms.ModelForm):
             'rtype': 'Request Type If Needed',
             'employeenum': 'Estimated Number of Employees for Project',
             'cost': 'Estimated Payroll for Project',
+            'datefield': 'Date'
 
         }
         fields = (
             '__all__')  # ('user', 'name', 'address_line1', 'address_line2', 'city','state','email', 'zipcode', 'fax')
+        widgets = {
+            'description': forms.Textarea(),
+            'datefield': DatePicker(),
+            'projectedate': DatePicker(),
+            'projectsdate': DatePicker()
+        }
 
 
 class RequesterDisplayForm(forms.ModelForm):
