@@ -25,11 +25,13 @@ urlpatterns = [
     path('<int:pk>/editrecipient/', views.editRecipientView, name='editrecipient'),
     path('<int:pk>/certholder/', views.CertHolderView.as_view(), name='certholder'),
     path('<int:pk>/droppdf/', views.dropPDF.as_view(), name='dropPDF'),
+    path('<int:pk>/admindroppdf/', views.admindropPDF, name='admindroppdf'),
     path('email/', views.email, name='demail'),
     path('<int:pk>/viewdoc/', views.GeneratePdf.as_view(), name='viewdoc'),
     path('<int:pk>/emailview/', views.EmailView.as_view(), name='emailview'),
     path('<int:pk>/admincertholder/', views.AdminCertHolderView.as_view(), name='admincertholder'),
     path('<int:pk>/adminzrecipient/', views.AdminzRecipientView, name='adminzrecipient'),
+
     # path('passwordsubmit/',views.PasswordSubmit.as_view(), name= 'passwordsubmit')
     # path(
     #     'login/',

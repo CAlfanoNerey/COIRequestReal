@@ -374,7 +374,7 @@ def AdminzRecipientView(request, pk=None):
         if form.is_valid():
             new_recipient = form.save()
 
-            return HttpResponseRedirect(reverse('dropPDF', args=(new_recipient.pk,)))
+            return HttpResponseRedirect(reverse('admindroppdf', args=(new_recipient.pk,)))
     else:
         form = RecipientForm()
     return render(request, 'recipient.html', {'form': form}, )
@@ -400,6 +400,28 @@ class dropPDF(View):
         # recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
 
         return redirect('accounts:demail')
+
+def admindropPDF(request, pk= None):
+
+
+    recipientdisplay = Recipient.objects.get(id=pk)
+    userdisplay = User.objects.get(id=recipientdisplay.user_id)
+    contact = Contact.objects.get(id=userdisplay.division_id)
+
+    data = {
+        'user': userdisplay,
+        'recipient': recipientdisplay,
+        'contact': contact
+    }
+    pdf = render_to_pdf('COIDoc.html', data)
+    today = datetime.now()
+    todays = today.strftime("%d-%b-%Y (%I:%M:%S)")
+
+    filename = userdisplay.name + '_' + recipientdisplay.name + '_' + todays + ".pdf"
+    recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
+    # recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
+
+    return redirect('accounts:demail')
 
 
 def email(request):
