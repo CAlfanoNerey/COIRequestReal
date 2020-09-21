@@ -49,6 +49,19 @@ class viewdoc(generic.DetailView):
 #         user = request.user
 #         requesterDisplay=
 
+def RecipientDeleteView(request, pk):
+
+    recipient = get_object_or_404(Recipient, pk=pk)
+    requester = recipient.user_id
+
+    if request.method == 'POST':
+        recipient.delete()
+        return redirect('accounts:certholder', pk= requester)
+    else:
+        return render (request, 'recipientdelete.html', {'recipient': recipient,'requester': requester})
+
+
+
 
 class getRequesterView(generic.DetailView):
 
@@ -91,6 +104,7 @@ def editRequesterView(request, pk=None):
 # @staff_member_required
 class CertHolderView(View):
     def get(self, request, *args, **kwargs):
+        user= request.user
         userdisplay = User.objects.all()
         recipientdisplay = Recipient.objects.all().filter(user_id=self.kwargs['pk'])
 
@@ -101,6 +115,7 @@ class CertHolderView(View):
         # }
 
         return render(request, 'certholder.html', {
+            'curruser': user,
             'user': userdisplay,
             'recipient': recipientdisplay,
             'error_message': "You didn't select a choice.",
@@ -127,13 +142,13 @@ def editRecipientView(request, pk=None):
     if pk:
 
         getrecipient = Recipient.objects.get(id=pk)
-        getuserpk= getrecipient.user_id
+        #getuserpk= getrecipient.user_id
         # key = Recipient.objects.get(Requester_id=pk)
         form = RecipientForm(instance=getrecipient)
         if request.method == 'POST':
             form = RecipientForm(request.POST, instance=getrecipient)
             form.save()
-            return redirect("accounts:admindroppdf", pk=getuserpk)
+            return redirect("accounts:admindroppdf", pk=pk)
 
     args = {'recipient': getrecipient, 'form': form}
 
@@ -279,7 +294,7 @@ class EmailView(View):
         demail = EmailMessage(
             subject='login credentials',
             body='your username is' + ' ' + str(userpass.username) + '\nyour password is ' + str(userpass.ppassword),
-            from_email='jhaverihussain@gmail.com',
+            from_email='CAlfano1999@gmail.com',
             to=[userpass.email],
         )
 
@@ -443,7 +458,7 @@ def admindropPDF(request, pk= None):
 
 def email(request):
     list_of_files = glob.glob(
-        '/Users/husj/PycharmProjects/Finalrepo/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
+        'C:/Users/calfa/PycharmProjects/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
     latest_file = max(list_of_files, key=os.path.getctime)
     # print(latest_file)
 

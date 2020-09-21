@@ -63,7 +63,7 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         exclude = ['last_login', 'is_superuser', 'is_staff', 'is_active', 'user_permissions', 'date_joined', 'groups',
-                   'password']
+                   'password','first_name','last_name']
         fields = ('__all__')
 
     class PasswordForm(forms.ModelForm):
@@ -149,7 +149,7 @@ class RecipientForm(forms.ModelForm):
         fields = (
             '__all__')  # ('user', 'name', 'address_line1', 'address_line2', 'city','state','email', 'zipcode', 'fax')
         widgets = {
-            'description': forms.Textarea(),
+            'description': forms.Textarea(attrs={'rows':1, 'cols':76}),
             'datefield': DatePicker(),
             'projectedate': DatePicker(),
             'projectsdate': DatePicker()
