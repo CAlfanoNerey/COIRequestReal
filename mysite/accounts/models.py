@@ -28,8 +28,11 @@ TITLE_STATES = [
 
 ]
 
-TYPES = [('Waiver of Subrogation', 'Waiver of Subrogation'),
-        ('Alternate Employer Endorsement', 'Alternate Employer Endorsement')]
+TYPES = [
+            ('Waiver of Subrogation', 'Waiver of Subrogation'),
+            ('Alternate Employer Endorsement', 'Alternate Employer Endorsement'),
+            ('Standard', 'Standard')
+         ]
 
 
 class Requester(models.Model):
@@ -107,7 +110,8 @@ class Recipient(models.Model):
     email = models.CharField(max_length=200)
     fax = models.IntegerField(blank=True, null=True)
     datefield = models.DateField(blank=True, null=True)
-    rtype = models.CharField(max_length=100, choices=TYPES, blank= True, null=True)
+    notes = models.CharField(blank=True, null=True, max_length=200)
+    rtype = models.CharField(max_length=100, choices=TYPES, blank= True, null=True, default="Standard")
     projectname= models.CharField(blank= True, null=True,max_length=200)
     address= models.CharField(blank= True, null=True,max_length=200)
     wcity= models.CharField(blank= True, null=True,max_length=200)
@@ -119,6 +123,7 @@ class Recipient(models.Model):
     employeenum= models.BigIntegerField(blank=True, null=True)
     cost = models.FloatField(blank=True, null=True)
     pdf = models.FileField(upload_to='pdf', null=True, blank=True)
+
     #dpdf = models.FileField(upload_to='pdf', storage= DROPBOX_STORAGE, default='', null=True, blank=
 
 

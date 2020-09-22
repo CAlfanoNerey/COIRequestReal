@@ -431,7 +431,7 @@ class dropPDF(View):
         recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
         # recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
 
-        return redirect('accounts:demail')
+        return redirect('accounts:demail', pk=recipientdisplay.pk)
 
 def admindropPDF(request, pk= None):
 
@@ -449,24 +449,24 @@ def admindropPDF(request, pk= None):
     today = datetime.now()
     todays = today.strftime("%d-%b-%Y (%I:%M:%S)")
 
-    filename = userdisplay.name + '_' + recipientdisplay.name + '_' + todays + ".pdf"
+    filename = recipientdisplay.name  + '_' + userdisplay.name + '_' + todays + ".pdf"
     recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
     # recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
 
-    return redirect('accounts:demail')
+    return redirect('accounts:demail', pk=pk)
 
 
-def email(request):
+def email(request, pk= None):
     list_of_files = glob.glob(
-        'C:/Users/calfa/PycharmProjects/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
+        '/Users/husj/PycharmProjects/Finalrepo/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
     latest_file = max(list_of_files, key=os.path.getctime)
     # print(latest_file)
-
+    recipientdisplay = Recipient.objects.get(id=pk)
     demail = EmailMessage(
         subject='email with attachment',
-        body='your attachment',
+        body=recipientdisplay.notes,
         from_email='CAlfano1999@gmail.com',
-        to=['CAlfano1999@gmail.com'],
+        to=['jhaverihussain@gmail.com'],
     )
     demail.attach_file(latest_file)
     demail.send()
