@@ -117,7 +117,7 @@ class Recipient(models.Model):
     wcity= models.CharField(blank= True, null=True,max_length=200)
     wstate= models.CharField(choices=TITLE_STATES, blank= True, null=True,max_length=200)
     wzipcode= models.CharField(blank= True, null=True,max_length=200)
-    description= models.CharField(max_length=75,blank= True, null=True,)
+    description= models.CharField(max_length= 200,blank= True, null=True,)
     projectsdate= models.DateField(blank= True, null=True)
     projectedate=models.DateField(blank= True, null=True)
     employeenum= models.BigIntegerField(blank=True, null=True)

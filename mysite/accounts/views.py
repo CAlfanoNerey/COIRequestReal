@@ -378,39 +378,55 @@ def edit_password(request, pk=None):
 
 
 # @staff_member_required
-def recipientView(request):
-    if request.method == "POST":
+class RecipientView(View):
+    def post(self, request, *args, **kwargs):
+        user = request.user
 
+        contact = Contact.objects.get(id=user.division_id)
+        userdisplay = User.objects.get(id=user.id)
+        # recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
         context = {}
         form = RecipientForm(request.POST)
         form.instance.user = request.user
+        form.instance.description= 'blah blah blah   '+ contact.yourbusinessname+ '   blah blah blah  '+ contact.yourbusinessname+ '   blah blah   '+ userdisplay.name
         context['form'] = form
 
         if form.is_valid():
             new_recipient = form.save()
 
             return HttpResponseRedirect(reverse('dropPDF', args=(new_recipient.pk,)))
-    else:
+
+
+    def get(self, request, *args, **kwargs):
         form = RecipientForm()
-    return render(request, 'recipient.html', {'form': form}, )
+        context = {'form': form}
+        return render(request, 'recipient.html', context, )
 
 
-def AdminzRecipientView(request, pk=None):
-    if request.method == "POST":
 
+class AdminzRecipientView(View):
+    def post(self, request, *args, **kwargs):
+        userdisplay = User.objects.get(id=self.kwargs['pk'])
+        contact = Contact.objects.get(id=userdisplay.division_id)
+
+        # recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
         context = {}
         form = RecipientForm(request.POST)
-        form.instance.user = User.objects.get(id=pk)
+        form.instance.user = userdisplay
+        form.instance.description= 'Overage provided for all leased employees but not subcontractors of:  '+ contact.yourbusinessname+ 'Coverage applies only to the employees of    '+ contact.yourbusinessname+ '   while on temporary assignment with:  '+ userdisplay.name
         context['form'] = form
+
 
         if form.is_valid():
             new_recipient = form.save()
 
             return HttpResponseRedirect(reverse('admindroppdf', args=(new_recipient.pk,)))
-    else:
-        form = RecipientForm()
-    return render(request, 'recipient.html', {'form': form}, )
 
+
+    def get(self, request, *args, **kwargs):
+        form = RecipientForm()
+        context = {'form': form}
+        return render(request, 'recipient.html', context, )
 class dropPDF(View):
     def get(self, request, *args, **kwargs):
         user = request.user

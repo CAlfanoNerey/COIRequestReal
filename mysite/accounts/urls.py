@@ -18,7 +18,7 @@ urlpatterns = [
     path('requester/', views.requesterView, name='requester_url'),
     path('<int:pk>/profile/', views.ViewProfile.as_view(), name='view_profile'),
     path('requesterupdate/', views.edit_profile, name='requester_update'),
-    path('recipient/', views.recipientView, name='recipient'),
+    path('recipient/', views.RecipientView.as_view(), name='recipient'),
     path('<int:pk>/password/', views.edit_password, name='password'),
     #path('<int:pk>/viewdoc/', views.viewdoc, name='viewdoc')
     path('rChoose/', staff_member_required(views.getRequesterView.as_view()), name='rChoose'),
@@ -32,7 +32,7 @@ urlpatterns = [
     path('<int:pk>/adminviewdoc/', views.adminGeneratePdf, name='viewdoc'),
     path('<int:pk>/emailview/', views.EmailView.as_view(), name='emailview'),
     path('<int:pk>/admincertholder/', views.AdminCertHolderView.as_view(), name='admincertholder'),
-    path('<int:pk>/adminzrecipient/', views.AdminzRecipientView, name='adminzrecipient'),
+    path('<int:pk>/adminzrecipient/', views.AdminzRecipientView.as_view(), name='adminzrecipient'),
     path('<int:pk>/delete/', views.RecipientDeleteView, name='recipientdelete')
     # path('passwordsubmit/',views.PasswordSubmit.as_view(), name= 'passwordsubmit')
     # path(
