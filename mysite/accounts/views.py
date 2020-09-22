@@ -388,7 +388,7 @@ class RecipientView(View):
         context = {}
         form = RecipientForm(request.POST)
         form.instance.user = request.user
-        form.instance.description= 'blah blah blah   '+ contact.yourbusinessname+ '   blah blah blah  '+ contact.yourbusinessname+ '   blah blah   '+ userdisplay.name
+        form.instance.description= 'Overage provided for all leased employees but not subcontractors of:  '+ contact.yourbusinessname+ 'Coverage applies only to the employees of    '+ contact.yourbusinessname+ '   while on temporary assignment with:  '+ userdisplay.name
         context['form'] = form
 
         if form.is_valid():
