@@ -458,7 +458,7 @@ def admindropPDF(request, pk= None):
 
 def email(request, pk= None):
     list_of_files = glob.glob(
-        '/Users/husj/PycharmProjects/Finalrepo/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
+        'D:/COIRequests/frfr/COIRequestReal/mysite/pdf/pdf/\*')  # * means all if need specific format then *.csv
     latest_file = max(list_of_files, key=os.path.getctime)
     # print(latest_file)
     recipientdisplay = Recipient.objects.get(id=pk)
@@ -466,7 +466,7 @@ def email(request, pk= None):
         subject='email with attachment',
         body=recipientdisplay.notes,
         from_email='CAlfano1999@gmail.com',
-        to=['jhaverihussain@gmail.com'],
+        to=['aidanfire360gmail.com'],
     )
     demail.attach_file(latest_file)
     demail.send()

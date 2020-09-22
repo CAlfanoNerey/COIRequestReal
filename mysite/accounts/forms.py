@@ -128,7 +128,7 @@ class DatePicker(forms.DateInput):
 class RecipientForm(forms.ModelForm):
     class Meta:
         model = Recipient
-        exclude = ['user', 'pdf', 'dpdf']
+        exclude = ['user', 'pdf', 'dpdf', 'description']
         labels = {
             'projectname': 'Project Name',
             'wcity': 'City',
