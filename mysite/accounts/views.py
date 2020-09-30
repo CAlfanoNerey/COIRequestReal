@@ -21,7 +21,7 @@ from django.views.generic import ListView
 from xhtml2pdf import pisa
 
 from .forms import RequesterForm, RecipientForm, RegistrationForm, RegisterUpdateForm, UpdatePasswordForm, \
-    RequesterDisplayForm, ContactForm
+    RequesterDisplayForm
 
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from .models import Recipient, Requester, User, Contact
@@ -44,10 +44,6 @@ class viewdoc(generic.DetailView):
     template_name = 'COIDoc2.html'
 
 
-class ContactView(FormView):
-    form_class = ContactForm
-    template_name= 'division.html'
-    success_url = reverse_lazy('accounts:register_url')
 # class PickRequesterView(View):
 #     def get(self, request, *args, **kwargs):
 #         user = request.user
@@ -298,7 +294,7 @@ class EmailView(View):
         demail = EmailMessage(
             subject='login credentials',
             body='your username is' + ' ' + str(userpass.username) + '\nyour password is ' + str(userpass.ppassword),
-            from_email='coirequests572@gmail.com',
+            from_email='CAlfano1999@gmail.com',
             to=[userpass.email],
         )
 
@@ -382,39 +378,55 @@ def edit_password(request, pk=None):
 
 
 # @staff_member_required
-def recipientView(request):
-    if request.method == "POST":
+class RecipientView(View):
+    def post(self, request, *args, **kwargs):
+        user = request.user
 
+        contact = Contact.objects.get(id=user.division_id)
+        userdisplay = User.objects.get(id=user.id)
+        # recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
         context = {}
         form = RecipientForm(request.POST)
         form.instance.user = request.user
+        form.instance.description= 'Overage provided for all leased employees but not subcontractors of:  '+ contact.yourbusinessname+ 'Coverage applies only to the employees of    '+ contact.yourbusinessname+ '   while on temporary assignment with:  '+ userdisplay.name
         context['form'] = form
 
         if form.is_valid():
             new_recipient = form.save()
 
             return HttpResponseRedirect(reverse('dropPDF', args=(new_recipient.pk,)))
-    else:
+
+
+    def get(self, request, *args, **kwargs):
         form = RecipientForm()
-    return render(request, 'recipient.html', {'form': form}, )
+        context = {'form': form}
+        return render(request, 'recipient.html', context, )
 
 
-def AdminzRecipientView(request, pk=None):
-    if request.method == "POST":
 
+class AdminzRecipientView(View):
+    def post(self, request, *args, **kwargs):
+        userdisplay = User.objects.get(id=self.kwargs['pk'])
+        contact = Contact.objects.get(id=userdisplay.division_id)
+
+        # recipientdisplay = Recipient.objects.get(id=self.kwargs['pk'])
         context = {}
         form = RecipientForm(request.POST)
-        form.instance.user = User.objects.get(id=pk)
+        form.instance.user = userdisplay
+        form.instance.description= 'Overage provided for all leased employees but not subcontractors of:  '+ contact.yourbusinessname+ 'Coverage applies only to the employees of    '+ contact.yourbusinessname+ '   while on temporary assignment with:  '+ userdisplay.name
         context['form'] = form
+
 
         if form.is_valid():
             new_recipient = form.save()
 
             return HttpResponseRedirect(reverse('admindroppdf', args=(new_recipient.pk,)))
-    else:
-        form = RecipientForm()
-    return render(request, 'recipient.html', {'form': form}, )
 
+
+    def get(self, request, *args, **kwargs):
+        form = RecipientForm()
+        context = {'form': form}
+        return render(request, 'recipient.html', context, )
 class dropPDF(View):
     def get(self, request, *args, **kwargs):
         user = request.user
@@ -435,7 +447,7 @@ class dropPDF(View):
         recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
         # recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
 
-        return redirect('accounts:demail')
+        return redirect('accounts:demail', pk=recipientdisplay.pk)
 
 def admindropPDF(request, pk= None):
 
@@ -453,24 +465,24 @@ def admindropPDF(request, pk= None):
     today = datetime.now()
     todays = today.strftime("%d-%b-%Y (%I:%M:%S)")
 
-    filename = userdisplay.name + '_' + recipientdisplay.name + '_' + todays + ".pdf"
+    filename = recipientdisplay.name  + '_' + userdisplay.name + '_' + todays + ".pdf"
     recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
     # recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
 
-    return redirect('accounts:demail')
+    return redirect('accounts:demail', pk=pk)
 
 
-def email(request):
+def email(request, pk= None):
     list_of_files = glob.glob(
-        'C:/Users/calfa/PycharmProjects/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
+        'D:/COIRequests/frfr/COIRequestReal/mysite/pdf/pdf/\*')  # * means all if need specific format then *.csv
     latest_file = max(list_of_files, key=os.path.getctime)
     # print(latest_file)
-
+    recipientdisplay = Recipient.objects.get(id=pk)
     demail = EmailMessage(
         subject='email with attachment',
-        body='your attachment',
-        from_email='coirequests572@gmail.com',
-        to=['CAlfano1999@gmail.com'],
+        body=recipientdisplay.notes,
+        from_email='CAlfano1999@gmail.com',
+        to=['aidanfire360gmail.com'],
     )
     demail.attach_file(latest_file)
     demail.send()

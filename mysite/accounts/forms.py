@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, UserCr
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, RegexValidator
 
-from .models import Requester, Recipient, User, Contact
+from .models import Requester, Recipient, User
 
 # from django.contrib.auth.forms import UserCreationForm
 #
@@ -24,8 +24,6 @@ TITLE_STATES = [
     ('55', 'Washington'), ('56', 'West Virginia'), ('57', 'Wisconsin'), ('58', 'Wyoming'),
 
 ]
-
-
 
 
 class RegisterUpdateForm(UserChangeForm):
@@ -63,19 +61,18 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         exclude = ['last_login', 'is_superuser', 'is_staff', 'is_active', 'user_permissions', 'date_joined', 'groups',
-                   'password','first_name','last_name']
+                   'password', 'first_name', 'last_name']
         fields = ('__all__')
 
     class PasswordForm(forms.ModelForm):
         class Meta:
             model = User
             exclude = ['last_login', 'is_superuser', 'is_staff', 'is_active', 'user_permissions', 'date_joined',
-                       'groups',  'password', 'username', 'divison', 'address_line1', 'address_line2', 'city',
+                       'groups', 'password', 'username', 'divison', 'address_line1', 'address_line2', 'city',
                        'state_or_territory'
                        'zipcode', 'fax',
 
-
-            ]
+                       ]
 
         # 'name',
         # 'first_name',
@@ -109,8 +106,6 @@ class UpdatePasswordForm(UserCreationForm):
             'username',
             'division',
 
-
-
         ]
 
 
@@ -124,14 +119,16 @@ class RequesterForm(forms.ModelForm):
     class Meta:
         model = Requester
         fields = ('__all__')
+
+
 class DatePicker(forms.DateInput):
     input_type = 'date'
 
-class RecipientForm(forms.ModelForm):
 
+class RecipientForm(forms.ModelForm):
     class Meta:
         model = Recipient
-        exclude = ['user','pdf','dpdf']
+        exclude = ['user', 'pdf', 'dpdf','description']
         labels = {
             'projectname': 'Project Name',
             'wcity': 'City',
@@ -143,21 +140,36 @@ class RecipientForm(forms.ModelForm):
             'rtype': 'Request Type If Needed',
             'employeenum': 'Estimated Number of Employees for Project',
             'cost': 'Estimated Payroll for Project',
-            'datefield': 'Date'
+            'datefield': 'Date',
+            'notes': 'Notes'
 
         }
         fields = (
             '__all__')  # ('user', 'name', 'address_line1', 'address_line2', 'city','state','email', 'zipcode', 'fax')
         widgets = {
-            'description': forms.Textarea(attrs={'rows':1, 'cols':76}),
+            'description': forms.Textarea(attrs={'rows': 1, 'cols': 76}),
             'datefield': DatePicker(),
             'projectedate': DatePicker(),
             'projectsdate': DatePicker()
         }
+        help_texts = {'projectname': 'Optional If Standard',
+                      'wcity': 'Optional If Standard',
+                      'wstate': 'Optional If Standard',
+                      'wzipcode': 'Optional If Standard',
+                      'description': 'Optional If Standard',
+                      'projectsdate': 'Optional If Standard',
+                      'projectedate': 'Optional If Standard',
+                      'employeenum': 'Optional If Standard',
+                      'cost': 'Optional If Standard',
+                      'notes': 'Any Additional Information Regarding the Request',
+                      'address': 'Optional If Standard'
+
+                      }
 
 
 class RequesterDisplayForm(forms.ModelForm):
     name = forms.CharField()
+
     class Meta:
         model = Requester
         fields = ('name',)
@@ -165,22 +177,6 @@ class RequesterDisplayForm(forms.ModelForm):
     def get_name(self):
         return self.name
 
-
-class ContactForm(forms.ModelForm):
-    class Meta:
-        model= Contact
-        labels = {
-            'yourbusinessname':'Business Name',
-            'yourname': 'Name',
-            'address' : 'Address Line 1',
-            'address2' : 'Address Line 2',
-            'city' : 'City',
-            'state' :'State',
-            'zipcode' : 'Zip Code',
-            'phonenumber' : 'Phone Number',
-            'email' : 'Email'
-        }
-        fields=('__all__')
 
 class LoginForm(AuthenticationForm):
     def confirm_login_allowed(self, user):

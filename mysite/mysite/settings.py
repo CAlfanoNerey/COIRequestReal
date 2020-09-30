@@ -153,4 +153,6 @@ DROPBOX_CONSUMER_KEY = 't5sfm4fold17za9'
 DROPBOX_CONSUMER_SECRET='sl5yh2ve525wt4j'
 
 
-
+import pymysql
+pymysql.version_info = (1, 3, 13, "final", 0)
+pymysql.install_as_MySQLdb()
