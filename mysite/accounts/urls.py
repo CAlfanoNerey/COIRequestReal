@@ -12,7 +12,12 @@ urlpatterns = [
 
     path('dashboard/', views.dashboardView, name="dashboard"),
     path('register/', views.SignUpView, name='register_url'),
-    path('contact/',views.ContactView.as_view(), name= 'contact'),
+    path('contact/', staff_member_required(views.ContactView.as_view()), name= 'contact'),
+    path('cChoose/', staff_member_required(views.getContactView.as_view()), name='cChoose'),
+    path('editContact/<int:pk>', views.editContactView, name= 'editcontact'),
+    path('confirmdelete/<int:pk>', views.ContactDeleteView, name='confirmdelete'),
+    path('contactdelete/<int:pk>',views.ContactDeleteView, name= 'contactdelete'),
+
     path('login/', views.loginview, name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
     path('register/requester/', views.requesterView, name='requester_url'),

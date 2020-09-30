@@ -1,0 +1,74 @@
+
+<title>Profile</title>
+{% extends 'index.html' %}
+
+{% block navbar %}
+{% endblock %}
+{#<div class="collapse navbar-collapse" id="navbarResponsive">#}
+{#                    <ul class="navbar-nav ml-auto">#}
+{#                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/{{ currUser.pk }}/profile">Profile</a></li>#}
+{##}
+{#                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/requester/">Requester</a></li>#}
+{##}
+{#                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/recipient">recipient</a></li>#}
+{#                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#">View Forms</a></li>#}
+{#                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/logout/">Logout</a></li>#}
+{#<!--                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a></li>-->#}
+{##}
+{#                    </ul>#}
+{#</div>#}
+
+
+
+{%block home%}
+
+{% endblock %}
+
+
+    {% block content %}
+<div class="container">
+    <br>
+    <br>
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Edit {{contact.yourbusinessname}}'s Division</h2>
+    <br>
+    <br>
+        <form method="POST">
+            {% csrf_token %}
+            Your Business: {{form.yourbusinessname}}
+            <br>
+            <br>
+            Your Name: {{form.yourname}}
+            <br>
+            <br>
+            Address Line 1: {{form.address}}
+            <br>
+            <br>
+            Address Line 2: {{form.address2}}
+            <br>
+            <br>
+            City: {{form.city}}
+            <br>
+            <br>
+            State: {{form.state}}
+            <br>
+            <br>
+            Zip Code: {{form.zipcode}}
+            <br>
+            <br>
+            Phone Number: {{form.phonenumber}}
+            <br>
+            <br>
+            Email: {{form.email}}
+            <br>
+            <br>
+            <button class="btn btn-success" type="submit" name = "button" >Submit</button>
+
+{#                        <a href="{% url 'accounts:recipientdelete' pk=recipient.pk %}" class="list-group-item list-group-item-action list-group-item-danger">Delete</a>#}
+        </form>
+
+            <a href="{% url 'accounts:confirmdelete' pk=contact.pk %}" class="btn btn-danger">Delete</a>
+{#        <button class="btn btn-danger" href="{% url 'accounts:confirmdelete' pk=contact.pk %}">Delete</button>#}
+
+
+    </div>
+{% endblock %}

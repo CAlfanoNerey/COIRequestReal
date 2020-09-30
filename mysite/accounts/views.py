@@ -21,7 +21,7 @@ from django.views.generic import ListView
 from xhtml2pdf import pisa
 
 from .forms import RequesterForm, RecipientForm, RegistrationForm, RegisterUpdateForm, UpdatePasswordForm, \
-    RequesterDisplayForm
+    RequesterDisplayForm, ContactForm, ContactUpdateForm
 
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from .models import Recipient, Requester, User, Contact
@@ -43,6 +43,59 @@ class viewdoc(generic.DetailView):
 
     template_name = 'COIDoc2.html'
 
+class ContactView(View):
+    def post(self, request, *args, **kwargs):
+        form = ContactForm(request.POST)
+        if form.is_valid():
+
+            form.save()
+
+            return HttpResponseRedirect(reverse('register_url'))
+
+
+    def get(self, request, *args, **kwargs):
+        form = ContactForm()
+        context = {'form': form}
+        return render(request, 'division.html', context, )
+
+
+
+class getContactView(generic.DetailView):
+
+    def get(self, request, *args, **kwargs):
+        contactdisplay = Contact.objects.all()
+
+        return render(request, 'cChoose.html', {
+            'contactdisplay': contactdisplay,
+        })
+
+
+
+@staff_member_required()
+def editContactView(request, pk=None):
+    if pk:
+        getcontact = Contact.objects.get(id=pk)
+        form = ContactUpdateForm(instance=getcontact)
+        if request.method == 'POST':
+            form = ContactForm(request.POST, instance=getcontact)
+            form.save()
+            return redirect('accounts:home')
+
+    args = {'contact': getcontact, 'form': form}
+
+    return render(request, 'editcontact.html', args)
+
+
+@staff_member_required()
+def ContactDeleteView(request, pk):
+
+    contact = get_object_or_404(Contact, pk=pk)
+
+    if request.method == 'POST':
+        contact.delete()
+        return redirect('accounts:cChoose')
+    else:
+        return render (request, 'confirmdelete.html', {'contact': contact})
 
 # class PickRequesterView(View):
 #     def get(self, request, *args, **kwargs):

@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, UserCr
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, RegexValidator
 
-from .models import Requester, Recipient, User
+from .models import Requester, Recipient, User, Contact
 
 # from django.contrib.auth.forms import UserCreationForm
 #
@@ -32,6 +32,7 @@ class RegisterUpdateForm(UserChangeForm):
         exclude = ['last_login', 'is_superuser', 'is_staff', 'is_active', 'user_permissions', 'date_joined', 'groups',
                    'password']
         fields = '__all__'
+
 
 
 class RegistrationForm(UserCreationForm):
@@ -165,6 +166,42 @@ class RecipientForm(forms.ModelForm):
                       'address': 'Optional If Standard'
 
                       }
+
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model= Contact
+        labels = {
+            'yourbusinessname':'Business Name',
+            'yourname': 'Name',
+            'address' : 'Address Line 1',
+            'address2' : 'Address Line 2',
+            'city' : 'City',
+            'state' :'State',
+            'zipcode' : 'Zip Code',
+            'phonenumber' : 'Phone Number',
+            'email' : 'Email'
+        }
+        fields=('__all__')
+
+
+class ContactUpdateForm(UserChangeForm):
+    class Meta:
+        model = Contact
+
+        labels = {
+            'yourbusinessname': 'Business Name',
+            'yourname': 'Name',
+            'address': 'Address Line 1',
+            'address2': 'Address Line 2',
+            'city': 'City',
+            'state': 'State',
+            'zipcode': 'Zip Code',
+            'phonenumber': 'Phone Number',
+            'email': 'Email'
+        }
+        fields = ('__all__')
 
 
 class RequesterDisplayForm(forms.ModelForm):

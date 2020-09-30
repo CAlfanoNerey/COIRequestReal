@@ -1,0 +1,72 @@
+
+<title>Profile</title>
+
+{% extends 'index.html' %}
+{%block home%}
+
+{% endblock %}
+
+{% block navbar %}
+<div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/rChoose">Add + See Form</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/register/">Add Client</a></li>
+                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/accounts/logout/">Logout</a></li>
+
+                    </ul>
+</div>
+{% endblock %}
+
+
+
+
+
+    {% block content %}
+<div class="container">
+<br>
+<br>
+
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Choose Division to Edit</h2>
+    <style>
+        .column {
+          float: left;
+          padding: 5px;
+        }
+
+        .right {
+          width: 25%;
+        }
+
+        .right2{
+            width: 25%;
+        }
+
+        .left {
+          width: 75%;
+        }
+    </style>
+    <br>
+    <br>
+
+
+        {% for contactdisplay in contactdisplay  %}
+        <div class="row">
+        <div class="column left">
+            <a href="{% url 'accounts:editcontact' pk=contactdisplay.id %}" class="list-group-item list-group-item-action">{{ contactdisplay.yourbusinessname }}</a>
+        </div>
+
+{#        <div class="column right2">#}
+{#            <a href="{% url 'accounts:adminzrecipient' pk=requesterdisplay.pk %}" class="list-group-item list-group-item-action">Delete</a>#}
+{#        </div>#}
+            </div>
+        {% endfor %}
+<br>
+        <a class="btn btn-success" name = "button" href="/accounts/register">Back</a>
+
+
+
+    </div>
+{% endblock %}
+
+
+
