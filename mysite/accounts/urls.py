@@ -12,6 +12,7 @@ urlpatterns = [
 
     path('dashboard/', views.dashboardView, name="dashboard"),
     path('register/', views.SignUpView, name='register_url'),
+    path('contact/',views.ContactView.as_view(), name= 'contact'),
     path('login/', views.loginview, name="login"),
     path('logout/', LogoutView.as_view(), name="logout"),
     path('register/requester/', views.requesterView, name='requester_url'),

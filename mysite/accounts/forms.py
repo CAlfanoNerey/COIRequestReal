@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, UserCr
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, RegexValidator
 
-from .models import Requester, Recipient, User
+from .models import Requester, Recipient, User, Contact
 
 # from django.contrib.auth.forms import UserCreationForm
 #
@@ -164,6 +164,23 @@ class RequesterDisplayForm(forms.ModelForm):
 
     def get_name(self):
         return self.name
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model= Contact
+        labels = {
+            'yourbusinessname':'Business Name',
+            'yourname': 'Name',
+            'address' : 'Address Line 1',
+            'address2' : 'Address Line 2',
+            'city' : 'City',
+            'state' :'State',
+            'zipcode' : 'Zip Code',
+            'phonenumber' : 'Phone Number',
+            'email' : 'Email'
+        }
+        fields=('__all__')
 
 class LoginForm(AuthenticationForm):
     def confirm_login_allowed(self, user):

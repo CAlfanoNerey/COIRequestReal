@@ -21,7 +21,7 @@ from django.views.generic import ListView
 from xhtml2pdf import pisa
 
 from .forms import RequesterForm, RecipientForm, RegistrationForm, RegisterUpdateForm, UpdatePasswordForm, \
-    RequesterDisplayForm
+    RequesterDisplayForm, ContactForm
 
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from .models import Recipient, Requester, User, Contact
@@ -44,6 +44,10 @@ class viewdoc(generic.DetailView):
     template_name = 'COIDoc2.html'
 
 
+class ContactView(FormView):
+    form_class = ContactForm
+    template_name= 'division.html'
+    success_url = reverse_lazy('accounts:register_url')
 # class PickRequesterView(View):
 #     def get(self, request, *args, **kwargs):
 #         user = request.user
@@ -294,7 +298,7 @@ class EmailView(View):
         demail = EmailMessage(
             subject='login credentials',
             body='your username is' + ' ' + str(userpass.username) + '\nyour password is ' + str(userpass.ppassword),
-            from_email='CAlfano1999@gmail.com',
+            from_email='coirequests572@gmail.com',
             to=[userpass.email],
         )
 
@@ -465,7 +469,7 @@ def email(request):
     demail = EmailMessage(
         subject='email with attachment',
         body='your attachment',
-        from_email='CAlfano1999@gmail.com',
+        from_email='coirequests572@gmail.com',
         to=['CAlfano1999@gmail.com'],
     )
     demail.attach_file(latest_file)
