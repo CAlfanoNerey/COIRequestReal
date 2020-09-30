@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 from django.dispatch import receiver
-#from django_dropbox_storage.storage import DropboxStorage
+from django_dropbox_storage.storage import DropboxStorage
 
 
 
@@ -98,7 +98,7 @@ class UserProfile(models.Model):
     phone = models.IntegerField(default=0)
 
 
-#DROPBOX_STORAGE = DropboxStorage()
+DROPBOX_STORAGE = DropboxStorage()
 class Recipient(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
@@ -123,8 +123,7 @@ class Recipient(models.Model):
     employeenum= models.BigIntegerField(blank=True, null=True)
     cost = models.FloatField(blank=True, null=True)
     pdf = models.FileField(upload_to='pdf', null=True, blank=True)
-
-    #dpdf = models.FileField(upload_to='pdf', storage= DROPBOX_STORAGE, default='', null=True, blank=
+    dpdf = models.FileField(upload_to='COIRequestWebsite', storage= DROPBOX_STORAGE, default='', null=True, blank= True)
 
 
     def __str__(self):

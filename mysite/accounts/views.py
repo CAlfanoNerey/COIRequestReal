@@ -441,7 +441,7 @@ class RecipientView(View):
         context = {}
         form = RecipientForm(request.POST)
         form.instance.user = request.user
-        form.instance.description= 'Overage provided for all leased employees but not subcontractors of:  '+ contact.yourbusinessname+ 'Coverage applies only to the employees of    '+ contact.yourbusinessname+ '   while on temporary assignment with:  '+ userdisplay.name
+        form.instance.description= 'Overage provided for all leased employees but not subcontractors of:  '+ contact.yourbusinessname+ '   Coverage applies only to the employees of    '+ contact.yourbusinessname+ '   while on temporary assignment with:  '+ userdisplay.name
         context['form'] = form
 
         if form.is_valid():
@@ -466,7 +466,7 @@ class AdminzRecipientView(View):
         context = {}
         form = RecipientForm(request.POST)
         form.instance.user = userdisplay
-        form.instance.description= 'Overage provided for all leased employees but not subcontractors of:  '+ contact.yourbusinessname+ 'Coverage applies only to the employees of    '+ contact.yourbusinessname+ '   while on temporary assignment with:  '+ userdisplay.name
+        form.instance.description= 'Overage provided for all leased employees but not subcontractors of:  '+ contact.yourbusinessname+'   '+'Coverage applies only to the employees of   '+ contact.yourbusinessname+ '   while on temporary assignment with:  '+ userdisplay.name
         context['form'] = form
 
 
@@ -498,7 +498,7 @@ class dropPDF(View):
 
         filename = userdisplay.name + '_' + recipientdisplay.name + '_' + todays + ".pdf"
         recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
-        # recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
+        recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
 
         return redirect('accounts:demail', pk=recipientdisplay.pk)
 
@@ -520,14 +520,14 @@ def admindropPDF(request, pk= None):
 
     filename = recipientdisplay.name  + '_' + userdisplay.name + '_' + todays + ".pdf"
     recipientdisplay.pdf.save(filename, File(BytesIO(pdf.content)))
-    # recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
+    recipientdisplay.dpdf.save(filename, File(BytesIO(pdf.content)))
 
     return redirect('accounts:demail', pk=pk)
 
 
 def email(request, pk= None):
     list_of_files = glob.glob(
-        'D:/COIRequests/frfr/COIRequestReal/mysite/pdf/pdf/\*')  # * means all if need specific format then *.csv
+        '/Users/husj/PycharmProjects/Finalrepo/COIRequestReal/mysite/pdf/pdf/*')  # * means all if need specific format then *.csv
     latest_file = max(list_of_files, key=os.path.getctime)
     # print(latest_file)
     recipientdisplay = Recipient.objects.get(id=pk)
@@ -535,7 +535,7 @@ def email(request, pk= None):
         subject='email with attachment',
         body=recipientdisplay.notes,
         from_email='CAlfano1999@gmail.com',
-        to=['aidanfire360gmail.com'],
+        to=['jhaverihussain@gmail.com'],
     )
     demail.attach_file(latest_file)
     demail.send()

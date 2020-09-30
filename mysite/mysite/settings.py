@@ -143,16 +143,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'jhaverihussain@gmail.com'
-EMAIL_HOST_PASSWORD = 'esujzowyaujxmqyt'
+EMAIL_HOST_USER = 'coirequests572@gmail.com'
+EMAIL_HOST_PASSWORD = 'pjwjkooseuhvdzjb'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'pdf')
 
-DROPBOX_ACCESS_TOKEN = 'Y12EdMvx0zQAAAAAAAAAAfZ8A_jqtSER9xBf60SvB78wAm0fmrgVAtembCb9nUKk'
-DROPBOX_CONSUMER_KEY = 't5sfm4fold17za9'
-DROPBOX_CONSUMER_SECRET='sl5yh2ve525wt4j'
-
-
-import pymysql
-pymysql.version_info = (1, 3, 13, "final", 0)
-pymysql.install_as_MySQLdb()
+DROPBOX_ACCESS_TOKEN = 'mEG1t-WQPr0AAAAAAAAAAXLx4RfDoP3JS2p3tSE05r3M5C7p4bjMf4GuKvc51sEJ'
